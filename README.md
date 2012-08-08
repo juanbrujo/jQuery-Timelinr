@@ -1,7 +1,9 @@
 jQuery Timelinr
 =============
 
-Dando vida al tiempo / Giving life to time
+[id]: http://www.csslab.cl/wp-content/uploads/2011/08/Screen-Shot-2012-08-03-at-12.19.30-700x342.png "jQuery Timelinr"
+
+**Dando vida al tiempo / Giving life to time**
 
 This simple plugin helps you to give more life to the boring timelines. Supports horizontal and vertical layouts, and you can specify parameters for most attributes: speed, transparency, etc...
 
@@ -11,50 +13,56 @@ Configuration:
 -------
 
 Include the jQuery library and this plugin:
-<script src="js/jquery-1.6.1.min.js" type="text/javascript"></script>
-<script src="js/jquery.timelinr-0.9.js" type="text/javascript"></script>
+
+`<script src="js/jquery-1.6.1.min.js"></script>`
+`<script src="js/jquery.timelinr-0.9.js"></script>`
+
 Inicialize-it with the default parameters:
-$(function(){
-   $().timelinr();
-});
+
+	$(function(){
+   		$().timelinr();
+	});
+
 Or configure it as preferred:
-$(function(){
-   $().timelinr({
-      orientation: 'horizontal',
-      // value: horizontal | vertical, default to horizontal
-      containerDiv: '#timeline',
-      // value: any HTML tag or #id, default to #timeline
-      datesDiv: '#dates',
-      // value: any HTML tag or #id, default to #dates
-      datesSelectedClass: 'selected',
-      // value: any class, default to selected
-      datesSpeed: 'normal',
-      // value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to normal
-      issuesDiv : '#issues',
-      // value: any HTML tag or #id, default to #issues
-      issuesSelectedClass: 'selected',
-      // value: any class, default to selected
-      issuesSpeed: 'fast',
-      // value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to fast
-      issuesTransparency: 0.2,
-      // value: integer between 0 and 1 (recommended), default to 0.2
-      issuesTransparencySpeed: 500,
-      // value: integer between 100 and 1000 (recommended), default to 500 (normal)
-      prevButton: '#prev',
-      // value: any HTML tag or #id, default to #prev
-      nextButton: '#next',
-      // value: any HTML tag or #id, default to #next
-      arrowKeys: 'false',
-      // value: true/false, default to false
-      startAt: 1,
-      // value: integer, default to 1 (first)
-      autoPlay: 'false',
-      // value: true | false, default to false
-      autoPlayDirection: 'forward',
-      // value: forward | backward, default to forward
-      autoPlayPause: 2000
-      // value: integer (1000 = 1 seg), default to 2000 (2segs)< });
-   });
+
+	$(function(){
+		$().timelinr({
+			orientation: 'horizontal',
+			// value: horizontal | vertical, default to horizontal
+			containerDiv: '#timeline',
+			// value: any HTML tag or #id, default to #timeline
+			datesDiv: '#dates',
+			// value: any HTML tag or #id, default to #dates
+			datesSelectedClass: 'selected',
+			// value: any class, default to selected
+			datesSpeed: 'normal',
+			// value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to normal
+			issuesDiv : '#issues',
+			// value: any HTML tag or #id, default to #issues
+			issuesSelectedClass: 'selected',
+			// value: any class, default to selected
+			issuesSpeed: 'fast',
+			// value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to fast
+			issuesTransparency: 0.2,
+			// value: integer between 0 and 1 (recommended), default to 0.2
+			issuesTransparencySpeed: 500,
+			// value: integer between 100 and 1000 (recommended), default to 500 (normal)
+			prevButton: '#prev',
+			// value: any HTML tag or #id, default to #prev
+			nextButton: '#next',
+			// value: any HTML tag or #id, default to #next
+			arrowKeys: 'false',
+			// value: true/false, default to false
+			startAt: 1,
+			// value: integer, default to 1 (first)
+			autoPlay: 'false',
+			// value: true | false, default to false
+			autoPlayDirection: 'forward',
+			// value: forward | backward, default to forward
+			autoPlayPause: 2000
+			// value: integer (1000 = 1 seg), default to 2000 (2segs)< });
+	});
+
 HTML markup must be as follows:
 
 <div id="timeline">
