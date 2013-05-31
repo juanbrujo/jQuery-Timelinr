@@ -9,6 +9,8 @@ http://www.opensource.org/licenses/mit-license.php
 instructions: http://www.csslab.cl/2011/08/18/jquery-timelinr/
 ---------------------------------- */
 
+(function($) {
+
 jQuery.fn.timelinr = function(options){
 	// default plugin settings
 	settings = jQuery.extend({
@@ -276,3 +278,5 @@ function autoPlay(){
 		}
 	}
 }
+
+})(jQuery);
