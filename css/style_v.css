@@ -127,6 +127,7 @@ h1,h2,h4,h5,h6 {
 			width: 500px;
 			height: 80px;
 			position: absolute;
+			pointer-events: none;
 		}
 			#grad_top {
 		        top: 0;
