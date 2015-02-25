@@ -11,7 +11,7 @@ instructions: http://www.csslab.cl/2011/08/18/jquery-timelinr/
 
 jQuery.fn.timelinr = function(options){
 	// default plugin settings
-	settings = jQuery.extend({
+	var settings = jQuery.extend({
 		orientation: 				'horizontal',		// value: horizontal | vertical, default to horizontal
 		containerDiv: 				'#timeline',		// value: any HTML tag or #id, default to #timeline
 		datesDiv: 					'#dates',			// value: any HTML tag or #id, default to #dates
