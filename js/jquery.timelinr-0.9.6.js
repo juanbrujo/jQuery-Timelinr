@@ -1,5 +1,5 @@
 /* ----------------------------------
-jQuery Timelinr 0.9.54
+jQuery Timelinr 0.9.55
 tested with jQuery v1.6+
 
 Copyright 2011, CSSLab.cl
@@ -12,27 +12,27 @@ instructions: http://www.csslab.cl/2011/08/18/jquery-timelinr/
 jQuery.fn.timelinr = function(options){
 	// default plugin settings
 	settings = jQuery.extend({
-		orientation: 				'horizontal',		// value: horizontal | vertical, default to horizontal
-		containerDiv: 				'#timeline',		// value: any HTML tag or #id, default to #timeline
-		datesDiv: 					'#dates',			// value: any HTML tag or #id, default to #dates
-		datesSelectedClass: 		'selected',			// value: any class, default to selected
-		datesSpeed: 				'normal',			// value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to normal
-		issuesDiv: 					'#issues',			// value: any HTML tag or #id, default to #issues
-		issuesSelectedClass: 		'selected',			// value: any class, default to selected
-		issuesSpeed: 				'fast',				// value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to fast
-		issuesTransparency: 		0.2,				// value: integer between 0 and 1 (recommended), default to 0.2
-		issuesTransparencySpeed: 	500,				// value: integer between 100 and 1000 (recommended), default to 500 (normal)
-		prevButton: 				'#prev',			// value: any HTML tag or #id, default to #prev
-		nextButton: 				'#next',			// value: any HTML tag or #id, default to #next
-		arrowKeys: 					'false',			// value: true | false, default to false
-		startAt: 					1,					// value: integer, default to 1 (first)
-		autoPlay: 					'false',			// value: true | false, default to false
-		autoPlayDirection: 			'forward',			// value: forward | backward, default to forward
-		autoPlayPause: 				2000				// value: integer (1000 = 1 seg), default to 2000 (2segs)
+		orientation: 							'horizontal',	// value: horizontal | vertical, default to horizontal
+		containerDiv: 						'#timeline',	// value: any HTML tag or #id, default to #timeline
+		datesDiv: 								'#dates',			// value: any HTML tag or #id, default to #dates
+		datesSelectedClass: 			'selected',		// value: any class, default to selected
+		datesSpeed: 							'normal',			// value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to normal
+		issuesDiv: 								'#issues',		// value: any HTML tag or #id, default to #issues
+		issuesSelectedClass: 			'selected',		// value: any class, default to selected
+		issuesSpeed: 							'fast',				// value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to fast
+		issuesTransparency: 			0.2,					// value: integer between 0 and 1 (recommended), default to 0.2
+		issuesTransparencySpeed: 	500,					// value: integer between 100 and 1000 (recommended), default to 500 (normal)
+		prevButton: 							'#prev',			// value: any HTML tag or #id, default to #prev
+		nextButton: 							'#next',			// value: any HTML tag or #id, default to #next
+		arrowKeys: 								'false',			// value: true | false, default to false
+		startAt: 									1,						// value: integer, default to 1 (first)
+		autoPlay: 								'false',			// value: true | false, default to false
+		autoPlayDirection: 				'forward',		// value: forward | backward, default to forward
+		autoPlayPause: 						2000					// value: integer (1000 = 1 seg), default to 2000 (2segs)
 	}, options);
 
 	$(function(){
-		// Checks if required elements exist on page before initializing timelinr
+		// Checks if required elements exist on page before initializing timelinr | improvement since 0.9.55
 		if ($(settings.datesDiv).length > 0 && $(settings.issuesDiv).length > 0) {
 			// setting variables... many of them
 			var howManyDates = $(settings.datesDiv+' li').length;
