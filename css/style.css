@@ -127,6 +127,7 @@ h1,h2,h4,h5,h6 {
 			height: 350px;
 			position: absolute;
 			top: 0;
+			pointer-events: none;
 		}
 			#grad_left {
 		        left: 0;
