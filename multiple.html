@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="Made with ❤ by Jorge Epuñan - @csslab">
+	
+	<title>jQuery Timelinr - Dando vida al tiempo</title>
+	<link rel="stylesheet" href="css/style_multiple.css" media="screen" />
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-timelinr.js"></script>
+	<script>
+		$(function(){
+			$().timelinr({
+				containerDiv: '#timeline1',
+				arrowKeys: 'true'
+			});
+
+			$().timelinr({
+				containerDiv: '.timeline'
+			});
+
+		});
+	</script>
+</head>
+
+<body>
+	
+	<div id="timeline1" class="timeline">
+		<ul class="dates">
+			<li><a href="#1901" class="selected">1901</a></li>
+			<li><a href="#1931">1931</a></li>
+		</ul>
+		<ul class="issues">
+			<li id="1901" class="selected">
+				<img src="images/1.png" width="256" height="256" />
+				<h1>1901</h1>
+				<p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+			</li>
+			<li id="1931">
+				<img src="images/2.png" width="256" height="256" />
+				<h1>1931</h1>
+				<p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+			</li>
+		</ul>
+		<a href="#" class="next">+</a>
+		<a href="#" class="prev">-</a>
+	</div>
+	
+	<div id="timeline2" class="timeline">
+		<ul class="dates">
+			<li><a href="#1902" class="selected">1902</a></li>
+			<li><a href="#1932">1932</a></li>
+			<li><a href="#1992">1992</a></li>
+			<li><a href="#2002">2002</a></li>
+		</ul>
+		<ul class="issues">
+			<li id="1902" class="selected">
+				<img src="images/1.png" width="256" height="256" />
+				<h1>1902</h1>
+				<p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+			</li>
+			<li id="1932">
+				<img src="images/2.png" width="256" height="256" />
+				<h1>1932</h1>
+				<p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+			</li>
+			<li id="1992">
+				<img src="images/2.png" width="256" height="256" />
+				<h1>1992</h1>
+				<p>In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+			</li>
+			<li id="2002">
+				<img src="images/2.png" width="256" height="256" />
+				<h1>2002</h1>
+				<p>In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+			</li>
+		</ul>
+		<a href="#" class="next">+</a>
+		<a href="#" class="prev">-</a>
+	</div>
+	
+	<div id="timeline3" class="timeline">
+		<ul class="dates">
+			<li><a href="#1903" class="selected">1903</a></li>
+		</ul>
+		<ul class="issues">
+			<li id="1903" class="selected">
+				<img src="images/1.png" width="256" height="256" />
+				<h1>1903</h1>
+				<p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+			</li>
+		</ul>
+		<a href="#" class="next">+</a>
+		<a href="#" class="prev">-</a>
+	</div>
+	
+</body>
+</html>
