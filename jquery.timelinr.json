@@ -1,0 +1,31 @@
+{
+	"name": "jQueryTimelinr",
+	"title": "jQuery Timelinr",
+	"homepage": "https://github.com/juanbrujo/jQuery-Timelinr",
+	"description": "Dando vida al tiempo / Giving life to time",
+	"demo": "http://www.csslab.cl/2011/08/18/jquery-timelinr/",
+	"keywords": [
+		"jquery",
+		"timeline",
+		"plugin"
+	],
+	"version": "1.0.0",
+	"author": {
+		"name": "Jorge Epuñan",
+		"url": "https://github.com/juanbrujo",
+		"twitter": "@csslab"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://mit-license.org/",
+			"copyright": "©2016"
+		}
+	],
+	"bugs": "https://github.com/juanbrujo/jQuery-Timelinr/issues",
+	"docs": "https://github.com/juanbrujo/jQuery-Timelinr#readme",
+	"download": "https://github.com/juanbrujo/jQuery-Timelinr/archive/master.zip",
+	"dependencies": {
+		"jquery": "1.9.2"
+	}
+}

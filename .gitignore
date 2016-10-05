@@ -1,0 +1,3 @@
+#ignore this files when pushing to a GIT repository
+.DS_Store
+node_modules
