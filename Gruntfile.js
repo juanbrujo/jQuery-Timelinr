@@ -15,12 +15,12 @@ module.exports = function(grunt) {
 				" */\n"
 		},
 		concat: {
+			options: {
+				banner: "<%= meta.banner %>"
+			},
 			dist: {
 				src: ["src/jquery.timelinr.js"],
 				dest: "dist/jquery.timelinr.js"
-			},
-			options: {
-				banner: "<%= meta.banner %>"
 			}
 		},
 		jshint: {
@@ -30,29 +30,60 @@ module.exports = function(grunt) {
 			}
 		},
 		uglify: {
-			my_target: {
-				src: ["src/jquery.timelinr.js"],
-				dest: "dist/jquery.timelinr.min.js"
-			},
 			options: {
 				banner: "<%= meta.banner %>"
+			},
+			target: {
+				src: ["dist/jquery.timelinr.js"],
+				dest: "dist/jquery.timelinr.min.js"
+			}
+		},
+		sass: {
+			options: {
+				banner: "<%= meta.banner %>",
+				sourceMap: true
+			},
+			dist: {
+				files: {
+					'dist/jquery.timelinr.css': 'src/jquery.timelinr.scss'
+				}
+			}
+		},
+		cssmin: {
+			options: {
+				shorthandCompacting: false,
+				roundingPrecision: -1,
+				banner: "<%= meta.banner %>"
+			},
+			target: {
+				files: [{
+					expand: true,
+					cwd: 'dist',
+					src: ['*.css', '!*.min.css'],
+					dest: 'dist',
+					ext: '.timelinr.min.css'
+				}]
 			}
 		},
 		watch: {
 			options: {
 				livereload: true
 			},
-		    scripts: {
+			scripts: {
 				files: ['src/*.js'],
-				tasks: ['uglify'],
+				tasks: ['concat'],
 				options: {
 					spawn: false
 				}
 			},
+			css: {
+				files: ['src/*.scss'],
+				tasks: ['sass'],
+			},
 			html: {
 				files: ['demo/*.html'],
 			},
-		    tasks: ['default']
+			tasks: ['default']
 		}
 	});
 
@@ -60,8 +91,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-sass");
+	grunt.loadNpmTasks("grunt-contrib-cssmin");
 
-	grunt.registerTask("default", ["concat", "uglify"]);
+	grunt.registerTask("default", ["concat", "sass"]);
+	grunt.registerTask("build", ["concat", "uglify", "sass", "cssmin"]);
 	grunt.registerTask("testjs", ["jshint"]);
 
 };

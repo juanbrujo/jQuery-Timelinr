@@ -4,9 +4,11 @@
     "grunt": "latest",
     "grunt-cli": "latest",
     "grunt-contrib-concat": "latest",
+    "grunt-contrib-cssmin": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-uglify": "latest",
-    "grunt-contrib-watch": "latest"
+    "grunt-contrib-watch": "latest",
+    "grunt-sass": "^1.2.1"
   },
   "scripts": {
     "test": "grunt travis --verbose"
