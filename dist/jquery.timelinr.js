@@ -1,3 +1,14 @@
+/*
+ *  jQuery Timelinr - v1.0.0
+ *  Dando vida al tiempo / Giving life to time
+ *
+ *  https://github.com/juanbrujo/jQuery-Timelinr
+ *  Demo: http://www.csslab.cl/2011/08/18/jquery-timelinr/
+ *
+ *  Author: Jorge Epuñan |  @csslab
+ *  License: MIT
+ *  ©2016
+ */
 ;(function ($, window, document, undefined) {
 
   "use strict";

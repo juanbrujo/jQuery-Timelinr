@@ -1,3 +1,95 @@
-body {
-  font-family: sans-serif;
+.timelinr {
+  height: 0;
+  margin: 0; 
+  padding: 0;
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.timelinr-issue {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  overflow: hidden;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: block;
+  }
+}
+
+.timelinr-nav {
+  $size: 25px;
+  $arrow-size: 1em;
+  $arrow-border-size: .5em;
+  $arrow-border-color: #000;
+
+  width: $size;
+  height: $size;
+  position: absolute;
+  top: 50%;
+  margin-top: -$size/2;
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  outline: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:before {
+    content: "";
+    position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: $arrow-size;
+    height: $arrow-size;
+    transform: rotate(45deg);
+  }
+
+  &.timelinr-prev {
+    left: 3%;
+
+    &:before {
+      border-left: $arrow-border-size solid $arrow-border-color;
+      border-bottom: $arrow-border-size solid $arrow-border-color;
+    }
+  }
+
+  &.timelinr-next {
+    right: 3%;
+
+    &:before {
+      border-right: $arrow-border-size solid $arrow-border-color;
+      border-top: $arrow-border-size solid $arrow-border-color;
+    }
+  }
+}
+
+.timelinr-dates {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  .timelinr-date {
+    display: inline-block;
+    color: black;
+    margin: 0 .3em;
+
+    &.timelinr-date-active {
+      color: red;
+    }
+  }
 }

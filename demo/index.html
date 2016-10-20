@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>jQuery Timelinr</title>
-	<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="../dist/jquery.timelinr.css">
 </head>
 <body>
 
-	
+  <div class="slider">
+    <img src="http://placehold.it/920x201?text=1" data-timelinr-date="1992" />
+    <img src="http://placehold.it/920x202?text=2" />
+    <img src="http://placehold.it/920x203?text=3" />
+    <img src="http://placehold.it/920x204?text=4" />
+  </div>
 
-	<a href="https://github.com/juanbrujo/jQuery-Timelinr/">GitHub</a>
+  <div class="slider2">
+    <div data-timelinr-date="1902"><img src="http://placehold.it/920x331?text=1" /><span class="caption">1902</span></div>
+    <div data-timelinr-date="1922"><img src="http://placehold.it/920x332?text=2" /><span class="caption">1922</span></div>
+    <div data-timelinr-date="1932"><img src="http://placehold.it/920x333?text=3" /><span class="caption">1932</span></div>
+  </div>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="../dist/jquery.timelinr.js"></script>
+  <script>
+    $('.slider').timelinr({
+      autoplay: false
+    });
+    $('.slider2').timelinr({
+      arrows: false,
+      speed: 1000,
+      startOn : 1,
+      autoplay: false
+    });
+  </script>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="js/libs/jquery.latest.min.js"><\/script>')</script>
-	<script src="../dist/jquery.timelinr.min.js"></script>
 </body>
 </html>

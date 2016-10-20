@@ -1,0 +1,70 @@
+.timelinr {
+  height: 0;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: block;
+  overflow: hidden; }
+
+.timelinr-issue {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  overflow: hidden; }
+  .timelinr-issue img {
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: block; }
+
+.timelinr-nav {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 50%;
+  margin-top: -12.5px;
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  outline: 0; }
+  .timelinr-nav:hover {
+    cursor: pointer; }
+  .timelinr-nav:before {
+    content: "";
+    position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    transform: rotate(45deg); }
+  .timelinr-nav.timelinr-prev {
+    left: 3%; }
+    .timelinr-nav.timelinr-prev:before {
+      border-left: 0.5em solid #000;
+      border-bottom: 0.5em solid #000; }
+  .timelinr-nav.timelinr-next {
+    right: 3%; }
+    .timelinr-nav.timelinr-next:before {
+      border-right: 0.5em solid #000;
+      border-top: 0.5em solid #000; }
+
+.timelinr-dates {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; }
+  .timelinr-dates .timelinr-date {
+    display: inline-block;
+    color: black;
+    margin: 0 .3em; }
+    .timelinr-dates .timelinr-date.timelinr-date-active {
+      color: red; }
+
+/*# sourceMappingURL=jquery.timelinr.css.map */
