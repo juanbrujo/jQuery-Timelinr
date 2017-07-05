@@ -248,10 +248,13 @@ jQuery.fn.timelinr = function(options){
 			$(settings.datesDiv+' li').eq(settings.startAt-1).find('a').trigger('click');
 			// autoPlay, added since 0.9.4
 			if(settings.autoPlay == 'true') {
+				// set default timer
+				var timer = setInterval(autoPlay, settings.autoPlayPause);
 				// pause autoplay on hover
 				$(settings.containerDiv).hover(function(ev){
 					clearInterval(timer);
 				}, function(ev){
+					// start again timer on mouse out
 					timer = setInterval(autoPlay, settings.autoPlayPause);
 				});
 				
