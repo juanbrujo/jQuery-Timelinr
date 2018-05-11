@@ -16,7 +16,7 @@ Include the jQuery library and this plugin:
 
 ```html
 <script src="js/jquery-1.x.x.min.js"></script>
-<script src="js/jquery.timelinr-0.9.x.js"></script>
+<script src="js/jquery.timelinr-x.x.x.js"></script>
 ```
 
 Inicialize-it with the default parameters:
