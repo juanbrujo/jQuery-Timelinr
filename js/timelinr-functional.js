@@ -10,12 +10,13 @@
  * - Responsive design
  * - Zero dependencies
  * 
- * @author Original by CSSLab.cl, modernized to functional version
+ * @author Jorge Epuñan H.
  * @license MIT
  * @example
  * const timeline = createTimelinr({
  *   orientation: 'horizontal',
- *   arrowKeys: 'true'
+ *   arrowKeys: true,
+ *   autoPlay: false
  * });
  * const cleanup = timeline.init();
  */
@@ -25,6 +26,13 @@ const createTimelinr = (userOptions = {}) => {
      * Default configuration merged with user options.
      * All measurements are in pixels, speeds in milliseconds.
      */
+    // Convert options to proper boolean values
+    const normalizeOptions = (options) => ({
+        ...options,
+        arrowKeys: Boolean(options.arrowKeys),
+        autoPlay: Boolean(options.autoPlay)
+    });
+
     const settings = Object.assign({
         orientation: 'horizontal',
         containerDiv: '#timeline',
@@ -38,12 +46,12 @@ const createTimelinr = (userOptions = {}) => {
         issuesTransparencySpeed: 500,
         prevButton: '#prev',
         nextButton: '#next',
-        arrowKeys: false,
+        arrowKeys: false,  // Must be boolean true/false
         startAt: 1,
         autoPlay: false,
         autoPlayDirection: 'forward',
         autoPlayPause: 2000
-    }, userOptions);
+    }, normalizeOptions(userOptions));
 
     /**
      * Internal state management using closure.
@@ -320,7 +328,7 @@ const createTimelinr = (userOptions = {}) => {
         });
 
         // Keyboard navigation
-        if (settings.arrowKeys === 'true') {
+        if (settings.arrowKeys) {
             const handleKeyPress = e => {
                 if (e.key === 'ArrowLeft') prev();
                 else if (e.key === 'ArrowRight') next();
@@ -338,7 +346,7 @@ const createTimelinr = (userOptions = {}) => {
      * @returns {Function} Cleanup function to clear the autoplay interval
      */
     const setupAutoPlay = () => {
-        if (settings.autoPlay === 'true') {
+        if (settings.autoPlay) {
             state.autoPlayInterval = setInterval(
                 () => settings.autoPlayDirection === 'forward' ? next() : prev(),
                 parseInt(settings.autoPlayPause)
