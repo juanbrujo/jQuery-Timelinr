@@ -5,9 +5,9 @@ jQuery Timelinr
 
 This simple plugin helps you to give more life to the boring timelines. Supports horizontal and vertical layouts, and you can specify parameters for most attributes: speed, transparency, etc...
 
-More info and demos: http://www.csslab.cl/2011/08/18/jquery-timelinr/
+More info and demos: https://www.csslab.cl/2011/08/18/jquery-timelinr/
 
-![jQuery Timelinr](http://www.csslab.cl/wp-content/uploads/2011/08/Screen-Shot-2012-08-03-at-12.19.30-700x342.png "Dando vida al tiempo / Giving life to time")
+![jQuery Timelinr](https://www.csslab.cl/wp-content/uploads/2011/08/Screen-Shot-2012-08-03-at-12.19.30-700x342.png "Dando vida al tiempo / Giving life to time")
 
 Configuration:
 -------
