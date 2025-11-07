@@ -6,48 +6,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="Made with ❤ by Jorge Epuñan - @csslab">
     
-    <title>Timelinr - Modern Functional Timeline Component</title>
-    <link rel="stylesheet" href="css/style.css" media="screen">
+    <title>Timelinr - Modern Timeline Component</title>
+    <link rel="stylesheet" href="css/style-functional.css" media="screen">
     
     <script src="js/timelinr-functional.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const timeline = createTimelinr({
-                arrowKeys: true
-            });
-            
-            // Initialize and store cleanup function
-            const cleanup = timeline.init();
+            // Initialize all timelines on the page
+            document.querySelectorAll('.timelinr').forEach((container, index) => {
+                const options = index === 0 ? {
+                    // First timeline: manual navigation
+                    arrowKeys: true
+                } : {
+                    // Second timeline: autoplay backwards with pause on hover
+                    startAt: 4,
+                    arrowKeys: false,
+                    autoPlay: true,
+                    autoPlayDirection: 'forward',
+                    autoPlayPause: 2000, // 2 seconds between transitions
+                    pauseOnHover: true   // Will pause on mouse hover
+                };
+                
+                const timeline = createTimelinr(options);
+                
+                // Pass the container to init function
+                const cleanup = timeline.init(container);
 
-            // Optional: Clean up when page unloads
+                // Store cleanup function on the container
+                if (cleanup) {
+                    container.cleanup = cleanup;
+                }
+            });
+
+            // Cleanup on page unload
             window.addEventListener('unload', () => {
-                if (cleanup) cleanup();
+                document.querySelectorAll('.timelinr').forEach(container => {
+                    if (container.cleanup) container.cleanup();
+                });
             });
         });
     </script>
 </head>
 
 <body>
-  <div id="timeline">
-    <ul id="dates">
-      <li><a href="#1900">1900</a></li>
-      <li><a href="#1930">1930</a></li>
-      <li><a href="#1944">1944</a></li>
-      <li><a href="#1950">1950</a></li>
-      <li><a href="#1971">1971</a></li>
-      <li><a href="#1977">1977</a></li>
-      <li><a href="#1989">1989</a></li>
-      <li><a href="#1999">1999</a></li>
-      <li><a href="#2001">2001</a></li>
-      <li><a href="#2011">2011</a></li>
+  <div class="timelinr">
+    <ul class="timelinr-dates">
+      <li><a href="#">1900</a></li>
+      <li><a href="#">1930</a></li>
+      <li><a href="#">1944</a></li>
+      <li><a href="#">1950</a></li>
+      <li><a href="#">1971</a></li>
+      <li><a href="#">1977</a></li>
     </ul>
-    <ul id="issues">
-      <li id="1900">
+    <ul class="timelinr-issues">
+      <li>
         <img src="images/1.png" width="256" height="256" />
         <h1>1900</h1>
         <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
       </li>
-      <li id="1930">
+      <li>
         <img src="images/2.png" width="256" height="256" />
         <h1>1930</h1>
         <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
@@ -67,6 +84,27 @@
         <h1>1971</h1>
         <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
       </li>
+      <li id="1977">
+        <img src="images/6.png" width="256" height="256" />
+        <h1>1977</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+    </ul>
+    <div class="grad_left"></div>
+    <div class="grad_right"></div>
+    <a href="#" class="timelinr-next">+</a>
+    <a href="#" class="timelinr-prev">-</a>
+  </div>
+
+  <div class="timelinr">
+    <ul class="timelinr-dates">
+      <li><a href="#">1977</a></li>
+      <li><a href="#">1989</a></li>
+      <li><a href="#">1999</a></li>
+      <li><a href="#">2001</a></li>
+      <li><a href="#">2011</a></li>
+    </ul>
+    <ul class="timelinr-issues">
       <li id="1977">
         <img src="images/6.png" width="256" height="256" />
         <h1>1977</h1>
@@ -93,10 +131,10 @@
         <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
       </li>
     </ul>
-    <div id="grad_left"></div>
-    <div id="grad_right"></div>
-    <a href="#" id="next">+</a>
-    <a href="#" id="prev">-</a>
+    <div class="grad_left"></div>
+    <div class="grad_right"></div>
+    <a href="#" class="timelinr-next">+</a>
+    <a href="#" class="timelinr-prev">-</a>
   </div>
 </body>
 </html>

@@ -5,20 +5,27 @@
  * Features:
  * - Horizontal or vertical orientation
  * - Keyboard navigation support
- * - Auto-play capability
+ * - Auto-play capability with continuous looping
  * - Smooth transitions and animations
  * - Responsive design
  * - Zero dependencies
  * 
+ * When autoPlay is enabled:
+ * - Forward direction: loops back to first element after last
+ * - Backward direction: loops to last element after first
+ * 
  * @author Jorge Epuñan H.
  * @license MIT
  * @example
- * const timeline = createTimelinr({
- *   orientation: 'horizontal',
- *   arrowKeys: true,
- *   autoPlay: false
+ * // HTML: <div class="timelinr">...</div>
+ * document.querySelectorAll('.timelinr').forEach(container => {
+ *   const timeline = createTimelinr({
+ *     orientation: 'horizontal',
+ *     arrowKeys: true,
+ *     autoPlay: false
+ *   });
+ *   const cleanup = timeline.init(container);
  * });
- * const cleanup = timeline.init();
  */
 
 const createTimelinr = (userOptions = {}) => {
@@ -27,30 +34,53 @@ const createTimelinr = (userOptions = {}) => {
      * All measurements are in pixels, speeds in milliseconds.
      */
     // Convert options to proper boolean values
-    const normalizeOptions = (options) => ({
-        ...options,
-        arrowKeys: Boolean(options.arrowKeys),
-        autoPlay: Boolean(options.autoPlay)
-    });
+    const normalizeOptions = (options) => {
+        const normalizedOptions = {
+            ...options,
+            arrowKeys: Boolean(options.arrowKeys),
+            autoPlay: Boolean(options.autoPlay),
+            pauseOnHover: 'pauseOnHover' in options ? Boolean(options.pauseOnHover) : true
+        };
+
+        // Validate and warn about autoplay-related settings
+        if (!normalizedOptions.autoPlay) {
+            if ('autoPlayDirection' in options) {
+                console.warn('Setting autoPlayDirection has no effect when autoPlay is false');
+            }
+            if ('autoPlayPause' in options) {
+                console.warn('Setting autoPlayPause has no effect when autoPlay is false');
+            }
+            if ('pauseOnHover' in options) {
+                console.warn('Setting pauseOnHover has no effect when autoPlay is false');
+            }
+            delete normalizedOptions.autoPlayDirection;
+            delete normalizedOptions.autoPlayPause;
+            delete normalizedOptions.pauseOnHover;
+        } else {
+            // Validate autoplay settings when autoPlay is true
+            if (!options.autoPlayDirection) {
+                console.warn('autoPlayDirection not set, using default: "forward"');
+            } else if (!['forward', 'backward'].includes(options.autoPlayDirection)) {
+                console.warn('Invalid autoPlayDirection value, must be "forward" or "backward". Using default: "forward"');
+            }
+            if (!options.autoPlayPause) {
+                console.warn('autoPlayPause not set, using default: 2000ms');
+            } else if (options.autoPlayPause < 500) {
+                console.warn('autoPlayPause value is too low (< 500ms), this might cause performance issues');
+            }
+        }
+
+        return normalizedOptions;
+    };
 
     const settings = Object.assign({
         orientation: 'horizontal',
-        containerDiv: '#timeline',
-        datesDiv: '#dates',
-        datesSelectedClass: 'selected',
         datesSpeed: 300,
-        issuesDiv: '#issues',
-        issuesSelectedClass: 'selected',
         issuesSpeed: 200,
-        issuesTransparency: 0.2,
-        issuesTransparencySpeed: 500,
-        prevButton: '#prev',
-        nextButton: '#next',
-        arrowKeys: false,  // Must be boolean true/false
+        arrowKeys: false,
         startAt: 1,
         autoPlay: false,
-        autoPlayDirection: 'forward',
-        autoPlayPause: 2000
+        pauseOnHover: true
     }, normalizeOptions(userOptions));
 
     /**
@@ -71,15 +101,22 @@ const createTimelinr = (userOptions = {}) => {
      * Returns null for non-existent elements to allow safe optional chaining.
      * @returns {Object} Object containing all necessary DOM elements
      */
-    const getDOMElements = () => ({
-        container: document.querySelector(settings.containerDiv),
-        dates: document.querySelector(settings.datesDiv),
-        issues: document.querySelector(settings.issuesDiv),
-        prevBtn: document.querySelector(settings.prevButton),
-        nextBtn: document.querySelector(settings.nextButton),
-        dateItems: document.querySelectorAll(`${settings.datesDiv} li`),
-        issueItems: document.querySelectorAll(`${settings.issuesDiv} li`)
-    });
+    const getDOMElements = (container) => {
+        if (!container) {
+            container = document.querySelector('.timelinr');
+        }
+        if (!container) return null;
+
+        return {
+            container,
+            dates: container.querySelector('.timelinr-dates'),
+            issues: container.querySelector('.timelinr-issues'),
+            prevBtn: container.querySelector('.timelinr-prev'),
+            nextBtn: container.querySelector('.timelinr-next'),
+            dateItems: container.querySelectorAll('.timelinr-dates li'),
+            issueItems: container.querySelectorAll('.timelinr-issues li')
+        };
+    };
 
     /**
      * Calculates all necessary dimensions for the timeline.
@@ -119,9 +156,9 @@ const createTimelinr = (userOptions = {}) => {
             elements.dates.style.height = `${dimensions.dateHeight * dimensions.howManyDates}px`;
         }
 
-        // Set up transitions for smooth animations
-        elements.issues.style.transition = `all ${settings.issuesSpeed}ms ease-in-out`;
-        elements.dates.style.transition = `all ${settings.datesSpeed}ms ease-in-out`;
+        // Set up transitions for smooth animations with explicit properties
+        elements.issues.style.transition = `margin ${settings.issuesSpeed}ms ease-in-out`;
+        elements.dates.style.transition = `margin ${settings.datesSpeed}ms ease-in-out`;
         
         // Initial centering of the first date
         const centerPos = calculateCenterPosition(dimensions, state.currentIndex, isHorizontal);
@@ -198,6 +235,13 @@ const createTimelinr = (userOptions = {}) => {
     const updateNavigation = (elements, dimensions, index) => {
         if (!elements.prevBtn || !elements.nextBtn) return;
 
+        // If arrowKeys is false, hide navigation buttons completely
+        if (!settings.arrowKeys) {
+            elements.prevBtn.style.display = 'none';
+            elements.nextBtn.style.display = 'none';
+            return;
+        }
+
         if (dimensions.howManyDates <= 1) {
             elements.prevBtn.style.display = 'none';
             elements.nextBtn.style.display = 'none';
@@ -221,6 +265,8 @@ const createTimelinr = (userOptions = {}) => {
      * @param {number} oldIndex - Previously selected index
      * @param {number} newIndex - Newly selected index
      */
+    const SELECTED_CLASS = 'selected';
+
     const updateSelected = (elements, oldIndex, newIndex) => {
         // Safely handle old index elements
         if (oldIndex >= 0) {
@@ -231,14 +277,13 @@ const createTimelinr = (userOptions = {}) => {
             if (oldDate) {
                 const oldLink = oldDate.querySelector('a');
                 if (oldLink) {
-                    oldLink.classList.remove(settings.datesSelectedClass);
+                    oldLink.classList.remove(SELECTED_CLASS);
                 }
             }
             
             // Update issue item
             if (oldIssue) {
-                oldIssue.classList.remove(settings.issuesSelectedClass);
-                oldIssue.style.opacity = settings.issuesTransparency;
+                oldIssue.classList.remove(SELECTED_CLASS);
             }
         }
 
@@ -250,14 +295,13 @@ const createTimelinr = (userOptions = {}) => {
         if (newDate) {
             const newLink = newDate.querySelector('a');
             if (newLink) {
-                newLink.classList.add(settings.datesSelectedClass);
+                newLink.classList.add(SELECTED_CLASS);
             }
         }
         
         // Update issue item
         if (newIssue) {
-            newIssue.classList.add(settings.issuesSelectedClass);
-            newIssue.style.opacity = '1';
+            newIssue.classList.add(SELECTED_CLASS);
         }
     };
 
@@ -289,12 +333,18 @@ const createTimelinr = (userOptions = {}) => {
     const next = () => {
         if (state.currentIndex < state.dimensions.howManyDates - 1) {
             goToIndex(state.currentIndex + 1);
+        } else if (settings.autoPlay) {
+            // If autoplay is on and we're at the last element, go to first
+            goToIndex(0);
         }
     };
 
     const prev = () => {
         if (state.currentIndex > 0) {
             goToIndex(state.currentIndex - 1);
+        } else if (settings.autoPlay) {
+            // If autoplay is on and we're at the first element, go to last
+            goToIndex(state.dimensions.howManyDates - 1);
         }
     };
 
@@ -306,6 +356,8 @@ const createTimelinr = (userOptions = {}) => {
      * @returns {Function} Cleanup function to remove all event listeners
      */
     const setupEvents = (elements) => {
+        const cleanupFunctions = [];
+
         // Date click events using event delegation
         elements.dates.addEventListener('click', e => {
             if (e.target.tagName === 'A') {
@@ -316,27 +368,43 @@ const createTimelinr = (userOptions = {}) => {
             }
         });
 
-        // Navigation button events
-        elements.prevBtn?.addEventListener('click', e => {
-            e.preventDefault();
-            prev();
-        });
+        // Setup navigation only if arrowKeys is enabled
+        if (settings.arrowKeys && elements.prevBtn && elements.nextBtn) {
+            // Navigation button events
+            const handlePrevClick = e => {
+                e.preventDefault();
+                prev();
+            };
 
-        elements.nextBtn?.addEventListener('click', e => {
-            e.preventDefault();
-            next();
-        });
+            const handleNextClick = e => {
+                e.preventDefault();
+                next();
+            };
 
-        // Keyboard navigation
-        if (settings.arrowKeys) {
+            elements.prevBtn.addEventListener('click', handlePrevClick);
+            elements.nextBtn.addEventListener('click', handleNextClick);
+
+            cleanupFunctions.push(() => {
+                elements.prevBtn.removeEventListener('click', handlePrevClick);
+                elements.nextBtn.removeEventListener('click', handleNextClick);
+            });
+
+            // Keyboard navigation
             const handleKeyPress = e => {
                 if (e.key === 'ArrowLeft') prev();
                 else if (e.key === 'ArrowRight') next();
             };
+
             document.addEventListener('keydown', handleKeyPress);
-            return () => document.removeEventListener('keydown', handleKeyPress);
+            cleanupFunctions.push(() => {
+                document.removeEventListener('keydown', handleKeyPress);
+            });
         }
-        return () => {};
+
+        // Return a cleanup function that handles all event listeners
+        return () => {
+            cleanupFunctions.forEach(cleanup => cleanup());
+        };
     };
 
     /**
@@ -346,14 +414,77 @@ const createTimelinr = (userOptions = {}) => {
      * @returns {Function} Cleanup function to clear the autoplay interval
      */
     const setupAutoPlay = () => {
-        if (settings.autoPlay) {
-            state.autoPlayInterval = setInterval(
-                () => settings.autoPlayDirection === 'forward' ? next() : prev(),
-                parseInt(settings.autoPlayPause)
-            );
-            return () => clearInterval(state.autoPlayInterval);
+        if (!settings.autoPlay) return () => {};
+
+        // Use default values if settings are not provided
+        const direction = settings.autoPlayDirection || 'forward';
+        const pause = Math.max(500, parseInt(settings.autoPlayPause) || 2000);
+        
+        let animationFrameId = null;
+        let lastTime = 0;
+        let isPlaying = false;
+
+        const animate = (currentTime) => {
+            if (!isPlaying) return;
+
+            if (!lastTime) lastTime = currentTime;
+            const deltaTime = currentTime - lastTime;
+
+            if (deltaTime >= pause) {
+                direction === 'forward' ? next() : prev();
+                lastTime = currentTime;
+            }
+
+            animationFrameId = requestAnimationFrame(animate);
+        };
+
+        const startInterval = () => {
+            if (isPlaying) return;
+            isPlaying = true;
+            lastTime = 0;
+            animationFrameId = requestAnimationFrame(animate);
+        };
+
+        const stopInterval = () => {
+            isPlaying = false;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+            lastTime = 0;
+        };
+
+        // Start initial autoplay
+        startInterval();
+
+        // Setup pause on hover if enabled
+        if (settings.pauseOnHover && state.elements.container) {
+            state.elements.container.addEventListener('mouseenter', stopInterval);
+            state.elements.container.addEventListener('mouseleave', startInterval);
+            
+            // Add visibility change handling
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    stopInterval();
+                } else {
+                    startInterval();
+                }
+            });
+
+            // Return cleanup function that removes event listeners
+            return () => {
+                stopInterval();
+                state.elements.container.removeEventListener('mouseenter', stopInterval);
+                state.elements.container.removeEventListener('mouseleave', startInterval);
+                document.removeEventListener('visibilitychange', stopInterval);
+            };
         }
-        return () => {};
+
+        // Return basic cleanup if pauseOnHover is disabled
+        return () => {
+            stopInterval();
+            document.removeEventListener('visibilitychange', stopInterval);
+        };
     };
 
     /**
@@ -366,10 +497,10 @@ const createTimelinr = (userOptions = {}) => {
      * 
      * @returns {Function|null} Cleanup function or null if initialization fails
      */
-    const init = () => {
-        state.elements = getDOMElements();
+    const init = (container) => {
+        state.elements = getDOMElements(container);
         
-        if (!state.elements.container || 
+        if (!state.elements?.container || 
             !state.elements.dates || 
             !state.elements.issues) {
             console.error('Required elements not found');
