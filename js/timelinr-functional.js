@@ -2,6 +2,32 @@
  * Timelinr - Modern ES6+ Timeline Component
  * 
  * A functional programming approach to creating interactive timelines.
+ * Built with modern JavaScript practices and zero dependencies.
+ * 
+ * @module Timelinr
+ * @author Jorge Epuñan H.
+ * @license MIT
+ * @version 1.0.0
+ * 
+ * @typedef {Object} TimelinrOptions
+ * @property {string} [orientation='horizontal'] - Timeline orientation ('horizontal' or 'vertical')
+ * @property {number} [datesSpeed=300] - Animation speed for dates in milliseconds
+ * @property {number} [issuesSpeed=200] - Animation speed for issues in milliseconds
+ * @property {boolean} [arrowKeys=false] - Enable keyboard arrow navigation
+ * @property {number} [startAt=1] - Starting position (1-based index)
+ * @property {boolean} [autoPlay=false] - Enable automatic cycling through timeline items
+ * @property {string} [autoPlayDirection='forward'] - Direction of autoplay ('forward' or 'backward')
+ * @property {number} [autoPlayPause=2000] - Pause between transitions in milliseconds
+ * @property {boolean} [pauseOnHover=true] - Pause autoplay when hovering over timeline
+ * 
+ * @typedef {Object} TimelinrAPI
+ * @property {function(HTMLElement): Function} init - Initialize the timeline
+ * @property {function(): void} next - Move to next item
+ * @property {function(): void} prev - Move to previous item
+ * @property {function(number): void} goToIndex - Go to specific index
+ * @property {function(): number} getCurrentIndex - Get current position
+ * @property {function(): TimelinrOptions} getSettings - Get current settings
+ * 
  * Features:
  * - Horizontal or vertical orientation
  * - Keyboard navigation support
@@ -10,14 +36,24 @@
  * - Responsive design
  * - Zero dependencies
  * 
- * When autoPlay is enabled:
- * - Forward direction: loops back to first element after last
- * - Backward direction: loops to last element after first
+ * Required HTML Structure:
+ * ```html
+ * <div class="timelinr">
+ *   <ul class="timelinr-dates">
+ *     <li><a href="#">Date 1</a></li>
+ *     <li><a href="#">Date 2</a></li>
+ *   </ul>
+ *   <ul class="timelinr-issues">
+ *     <li>Content 1</li>
+ *     <li>Content 2</li>
+ *   </ul>
+ *   <button class="timelinr-prev">Previous</button>
+ *   <button class="timelinr-next">Next</button>
+ * </div>
+ * ```
  * 
- * @author Jorge Epuñan H.
- * @license MIT
  * @example
- * // HTML: <div class="timelinr">...</div>
+ * // Basic initialization
  * document.querySelectorAll('.timelinr').forEach(container => {
  *   const timeline = createTimelinr({
  *     orientation: 'horizontal',
@@ -26,15 +62,39 @@
  *   });
  *   const cleanup = timeline.init(container);
  * });
+ * 
+ * @example
+ * // With autoplay
+ * const timeline = createTimelinr({
+ *   autoPlay: true,
+ *   autoPlayDirection: 'forward',
+ *   autoPlayPause: 3000,
+ *   pauseOnHover: true
+ * });
  */
 
+/**
+ * Creates a new Timelinr instance with the specified options.
+ * 
+ * @function createTimelinr
+ * @param {TimelinrOptions} [userOptions={}] - Configuration options for the timeline
+ * @returns {TimelinrAPI} Timeline control methods and properties
+ * @throws {Error} If required DOM elements are not found during initialization
+ */
 const createTimelinr = (userOptions = {}) => {
     /**
      * Default configuration merged with user options.
      * All measurements are in pixels, speeds in milliseconds.
      */
     // Convert options to proper boolean values
-    const normalizeOptions = (options) => {
+    /**
+ * Normalizes and validates user options, providing warnings for invalid settings.
+ * 
+ * @private
+ * @param {TimelinrOptions} options - Raw user options
+ * @returns {TimelinrOptions} Normalized options with proper types and defaults
+ */
+const normalizeOptions = (options) => {
         const normalizedOptions = {
             ...options,
             arrowKeys: Boolean(options.arrowKeys),
@@ -203,7 +263,19 @@ const createTimelinr = (userOptions = {}) => {
         }
     };
 
-    const updatePosition = (elements, dimensions, index) => {
+    /**
+ * Updates the position of issues and dates containers based on the current index.
+ * 
+ * @private
+ * @param {Object} elements - DOM elements object
+ * @param {HTMLElement} elements.issues - Issues container element
+ * @param {HTMLElement} elements.dates - Dates container element
+ * @param {Object} dimensions - Timeline dimensions
+ * @param {number} dimensions.issueWidth - Width of each issue
+ * @param {number} dimensions.issueHeight - Height of each issue
+ * @param {number} index - Current active index
+ */
+const updatePosition = (elements, dimensions, index) => {
         if (!elements || !dimensions) return;
         
         const isHorizontal = settings.orientation === 'horizontal';
@@ -306,7 +378,15 @@ const createTimelinr = (userOptions = {}) => {
     };
 
     // Navigation functions
-    const goToIndex = index => {
+    /**
+ * Navigates to a specific index in the timeline.
+ * Updates selected items, positions, and navigation state.
+ * 
+ * @private
+ * @param {number} index - Target index to navigate to
+ * @throws {Error} If timeline is not properly initialized
+ */
+const goToIndex = index => {
         // Validate state and index
         if (!state.elements || !state.dimensions) {
             console.warn('Timeline not properly initialized');
@@ -330,7 +410,13 @@ const createTimelinr = (userOptions = {}) => {
         }
     };
 
-    const next = () => {
+    /**
+ * Moves to the next item in the timeline.
+ * Loops to first item if autoPlay is enabled and currently at last item.
+ * 
+ * @private
+ */
+const next = () => {
         if (state.currentIndex < state.dimensions.howManyDates - 1) {
             goToIndex(state.currentIndex + 1);
         } else if (settings.autoPlay) {
@@ -339,7 +425,13 @@ const createTimelinr = (userOptions = {}) => {
         }
     };
 
-    const prev = () => {
+    /**
+ * Moves to the previous item in the timeline.
+ * Loops to last item if autoPlay is enabled and currently at first item.
+ * 
+ * @private
+ */
+const prev = () => {
         if (state.currentIndex > 0) {
             goToIndex(state.currentIndex - 1);
         } else if (settings.autoPlay) {
@@ -413,7 +505,14 @@ const createTimelinr = (userOptions = {}) => {
      * Includes automatic cleanup of intervals.
      * @returns {Function} Cleanup function to clear the autoplay interval
      */
-    const setupAutoPlay = () => {
+    /**
+ * Configures and initializes the autoplay functionality.
+ * Uses requestAnimationFrame for smooth animations and better performance.
+ * 
+ * @private
+ * @returns {Function} Cleanup function that removes all autoplay-related event listeners
+ */
+const setupAutoPlay = () => {
         if (!settings.autoPlay) return () => {};
 
         // Use default values if settings are not provided
