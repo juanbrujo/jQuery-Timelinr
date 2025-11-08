@@ -155,7 +155,7 @@ const createTimelinr = (userOptions = {}) => {
         orientation: 'horizontal',
         datesPosition: 'top', // 'top' or 'bottom' for horizontal, 'left' or 'right' for vertical
         datesSpeed: 300,
-        issuesSpeed: 200,
+        issuesSpeed: 500,
         arrowKeys: true,
         startAt: 1,
         autoPlay: false,
@@ -242,13 +242,13 @@ const createTimelinr = (userOptions = {}) => {
         const prevBtn = document.createElement('a');
         prevBtn.href = '#';
         prevBtn.className = 'timelinr-prev';
-        prevBtn.textContent = '−';
+        prevBtn.innerHTML = '&#x2794;';
 
         // Create next button
         const nextBtn = document.createElement('a');
         nextBtn.href = '#';
         nextBtn.className = 'timelinr-next';
-        nextBtn.textContent = '+';
+        nextBtn.innerHTML = '&#x2794;';
 
         // Hide buttons if arrowKeys is false
         if (!settings.arrowKeys) {
@@ -459,7 +459,7 @@ const updatePosition = (elements, dimensions, index) => {
      * @param {number} oldIndex - Previously selected index
      * @param {number} newIndex - Newly selected index
      */
-    const SELECTED_CLASS = 'selected';
+    const SELECTED_CLASS = 'current';
 
     const updateSelected = (elements, oldIndex, newIndex) => {
         // Safely handle old index elements
@@ -469,10 +469,7 @@ const updatePosition = (elements, dimensions, index) => {
             
             // Update date item
             if (oldDate) {
-                const oldLink = oldDate.querySelector('a');
-                if (oldLink) {
-                    oldLink.classList.remove(SELECTED_CLASS);
-                }
+                oldDate.classList.remove(SELECTED_CLASS);
             }
             
             // Update issue item
@@ -487,10 +484,7 @@ const updatePosition = (elements, dimensions, index) => {
         
         // Update date item
         if (newDate) {
-            const newLink = newDate.querySelector('a');
-            if (newLink) {
-                newLink.classList.add(SELECTED_CLASS);
-            }
+            newDate.classList.add(SELECTED_CLASS);
         }
         
         // Update issue item

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Made with ❤ by Jorge Epuñan - @csslab">
+    
+    <title>Timelinr - Modern Timeline Component</title>
+    <link rel="stylesheet" href="css/style-functional.css" media="screen">
+    
+    <script src="js/timelinr-functional.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all timelines on the page
+            document.querySelectorAll('.timelinr').forEach((container, index) => {
+                const options = index === 0 ? {
+
+                } : index === 1 ? {
+                  orientation: 'vertical',
+                  datesPosition: 'right'
+                } : {
+                    startAt: 4,
+                    datesPosition: 'bottom',
+                    arrowKeys: false,
+                    autoPlay: true,
+                    autoPlayDirection: 'forward',
+                    autoPlayPause: 2000,
+                    pauseOnHover: true
+                };
+                
+                const timeline = createTimelinr(options);
+                
+                // Pass the container to init function
+                const cleanup = timeline.init(container);
+
+                // Store cleanup function on the container
+                if (cleanup) {
+                    container.cleanup = cleanup;
+                }
+            });
+
+            // Cleanup on page unload
+            window.addEventListener('unload', () => {
+                document.querySelectorAll('.timelinr').forEach(container => {
+                    if (container.cleanup) container.cleanup();
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+  <div class="timelinr">
+    <ul class="timelinr-issues">
+      <li data-date="1900">
+        <img src="images/1.png" width="256" height="256" />
+        <h1>1900</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="1930">
+        <img src="images/2.png" width="256" height="256" />
+        <h1>1930</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="1944">
+        <img src="images/3.png" width="256" height="256" />
+        <h1>1944</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="1950">
+        <img src="images/4.png" width="256" height="256" />
+        <h1>1950</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="1971">
+        <img src="images/5.png" width="256" height="256" />
+        <h1>1971</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="1977">
+        <img src="images/6.png" width="256" height="256" />
+        <h1>1977</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="timelinr">
+  <ul class="timelinr-issues">
+  <li data-date="900-AC">
+        <img src="images/6.png" width="256" height="256" />
+        <h1>900-AC</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="10-AC">
+        <img src="images/7.png" width="256" height="256" />
+        <h1>10-AC</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="12-BC">
+        <img src="images/8.png" width="256" height="256" />
+        <h1>12-BC</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+    </ul>
+  </div>
+
+  <div class="timelinr">
+    <ul class="timelinr-issues">
+      <li data-date="1977">
+        <img src="images/6.png" width="256" height="256" />
+        <h1>1977</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="1989">
+        <img src="images/7.png" width="256" height="256" />
+        <h1>1989</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="1999">
+        <img src="images/8.png" width="256" height="256" />
+        <h1>1999</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="2001">
+        <img src="images/9.png" width="256" height="256" />
+        <h1>2001</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="2011">
+        <img src="images/10.png" width="256" height="256" />
+        <h1>2011</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

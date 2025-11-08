@@ -1,245 +1,256 @@
+:root {
+  --color-bg: #cccccc;
+  --color-bg-rgb: 255, 255, 255;
+  --color-text: #333333;
+  --color-link: #b57b12;
+  --color-link-hover: #de6418;
+  --arrow-size: 30px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 * {
   margin: 0;
   padding: 0;
+  /* outline: 1px solid red; */
 }
 
 body {
-  background: #222;
-  font-family: Georgia, serif;
-  color: #fff;
-  font-size: 14px;
+  background: var(--color-bg);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: var(--color-text);
+  font-size: 16px;
 }
 
-a {
-  color: #ffffcc;
+/* Default Timelinr */
+.timelinr {
+  position: relative;
+  width: 800px;
+  margin: 100px auto;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0,0,0,.2);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.timelinr::after,
+.timelinr::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background-color: var(--color-bg);
+  background: linear-gradient(90deg,rgba(var(--color-bg-rgb), 1) 30%, rgba(var(--color-bg-rgb), 0) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.timelinr::after {
+  left: auto;
+  right: 0;
+  background: linear-gradient(270deg,rgba(var(--color-bg-rgb), 1) 30%, rgba(var(--color-bg-rgb), 0) 100%);
+}
+
+.timelinr li {
+  list-style: none;
+}
+
+.timelinr-dates {
+  width: 800px;
+  height: 50px;
+}
+
+.timelinr-dates li {
+  --base-size: 50px;
+
+  float: left;
+  width: calc(var(--base-size) * 2);
+  height: var(--base-size);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: url('../images/biggerdot.png') center 47px no-repeat; */
+}
+
+.timelinr-dates li::before {
+  --dot-size: 10px;
+
+  content: '';
+  position: absolute;
+  bottom: calc((var(--dot-size) / 2) * -1);
+  left: 50%;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background-color: var(--color-text);
+}
+
+.timelinr-dates a {
+  font-size: 24px;
+  color: var(--color-link);
   text-decoration: none;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-  a:hover,
-  a.selected {
-    color: #ffcc00;
-  }
-
-h1,h2,h4,h5,h6 {
-  text-align: center;
-  color: #ccc;
-  text-shadow: #000 1px 1px 2px;
-  margin-bottom: 5px;
+  transition: font .3s ease;
 }
 
-  h1 {
-    font-size: 18px;
-  }
+.timelinr-dates li.current a {
+  font-size: 32px;
+  color: var(--color-link-hover);
+}
+
+.timelinr-dates .current::before {
+  background-color: var(--color-link-hover)
+}
+
+.timelinr-issues {
+  width: 800px;
+  height: 200px;
+  padding: 20px 0;
+  /* background: url('../images/dot.gif') left top repeat-x; */
+  border-top: 1px solid var(--color-text);
+}
+
+.timelinr-dates-bottom .timelinr-issues {
+  background: url('../images/dot.gif') left bottom repeat-x;
+}
+
+.timelinr-dates-bottom .timelinr-dates li {
+  background: url('../images/biggerdot.png') center -4px no-repeat;
+}
+
+.timelinr-issues li {
+  width: 800px;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timelinr-issues .inner-content {
+  padding: 20px 40px;
+}
+/* 
+.timelinr-issues li.selected img {
+  transform: scale(1,1);
+}
+
+.timelinr-issues li img {
+  float: left;
+  margin: 10px 30px;
+  background: transparent;
+  transition: all 2s ease-in-out;
+  transform: scale(0.7,0.7);
+}
+
+.timelinr-issues li h1 {
+  color: var(--color-link-selected);
+  font-size: 48px;
+  margin: 20px 0;
+  text-shadow: var(--color-shadow) 1px 1px 2px;
+}
+
+.timelinr-issues li p {
+  font-size: 14px;
+  margin-right: 70px;
+  font-weight: normal;
+  line-height: 22px;
+  text-shadow: var(--color-shadow) 1px 1px 2px;
+} */
   
-  h2 {
-    font-size: 14px;
-  }
-  
-.sociales {
+.timelinr-next,
+.timelinr-prev {
+  position: absolute;
+  top: calc(50% - (var(--arrow-size) / 2));
+  width: var(--arrow-size);
+  height: var(--arrow-size);
+  display: flex;
   text-align: center;
-  margin-bottom: 20px;
+  align-content: center;
+  font-size: 22px;
+  color: white;
+  text-decoration: none;
+  line-height: 1;
+  border-radius: 50%;
+  z-index: 2;
+  background-color: var(--color-link);
 }
 
-  .timelinr {
-    width: 800px;
-    overflow: hidden;
-    margin: 100px auto;
-    position: relative;
-  }
+.timelinr-prev {
+  left: 1%;
+  transform: rotate(180deg);
+}
 
-   .timelinr-vertical {
-		width: 540px;
-		height: 600px;
-		margin: 40px auto;
-	}
+.timelinr-next {
+  right: 1%;
+}
 
-  .timelinr:after,
-  .timelinr:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background-color: #222;
-    background: linear-gradient(90deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
-    pointer-events: none;
-  }
+/* Vertical */
+.timelinr-vertical {
+  width: 540px;
+  height: 400px;
+  padding: 0 20px;
+}
 
-  .timelinr:after {
-    left: auto;
-    right: 0;
-    background: linear-gradient(270deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
-  }
+.timelinr-vertical::after,
+.timelinr-vertical::before {
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(180deg,rgba(var(--color-bg-rgb), 1) 30%, rgba(var(--color-bg-rgb), 0) 100%);
+}
 
-  .timelinr-vertical:after,
-  .timelinr-vertical:before {
-    width: 100%;
-    height: 30px;
-    background: linear-gradient(180deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
-  }
+.timelinr-vertical::after {
+  top: auto;
+  bottom: 0;
+  background: linear-gradient(0deg,rgba(var(--color-bg-rgb), 1) 30%, rgba(var(--color-bg-rgb), 0) 100%);
+}
 
-  .timelinr-vertical:after {
-    top: auto;
-    bottom: 0;
-    background: linear-gradient(0deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
-  }
+.timelinr-vertical .timelinr-dates {
+  width: 140px;
+  height: 400px;
+  float: left;
+}
 
-  .timelinr-dates {
-    width: 800px;
-    height: 50px;
-  }
+.timelinr-vertical .timelinr-dates li {
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  background: url('../images/biggerdot.png') 137px center no-repeat;
+}
 
-      .timelinr-dates li {
-        list-style: none;
-        float: left;
-        width: 100px;
-        height: 50px;
-        line-height: 50px;
-        font-size: 24px;
-        text-align: center;
-        background: url('../images/biggerdot.png') center 47px no-repeat;
-      }
+.timelinr-vertical .timelinr-issues {
+  width: 400px;
+  height: 400px;
+  float: left;
+  background: url('../images/dot.gif') left top repeat-y;
+}
 
-        .timelinr-dates a {
-          line-height: 38px;
-          padding-bottom: 10px;
-        }
-      
-        .timelinr-dates .selected {
-          font-size: 38px;
-        }
-    
-    .timelinr-vertical .timelinr-dates {
-			width: 140px;
-			height: 600px;
-			float: left;
-		}
-			.timelinr-vertical .timelinr-dates li {
-        width: 100%;
-				height: 100px;
-				line-height: 100px;
-				background: url('../images/biggerdot.png') 137px center no-repeat;
-			}
+.timelinr-dates-right .timelinr-issues {
+  background: url('../images/dot.gif') right top repeat-y;
+}
 
-    .timelinr-issues {
-      width: 800px;
-      height: 350px;
-      padding: 20px 0;
-      background: url('../images/dot.gif') left top repeat-x;
-    }
-    
-    .timelinr-vertical .timelinr-issues {
-			width: 400px;
-			height: 600px;
-			float: left;
-      background: url('../images/dot.gif') left top repeat-y;
-		}
+.timelinr-dates-right .timelinr-dates li {
+  background: url('../images/biggerdot.png') -3px center no-repeat;
+}
 
-    .timelinr-dates-right .timelinr-issues {
-      background: url('../images/dot.gif') right top repeat-y;
-		}
+.timelinr-vertical .timelinr-issues li {
+  width: 400px;
+  height: 380px;
+}
 
-    .timelinr-dates-bottom .timelinr-issues {
-      background: url('../images/dot.gif') left bottom repeat-x;
-    }
+.timelinr-vertical .timelinr-next,
+.timelinr-vertical .timelinr-prev {
+  top: 2%;
+  left: calc(50% - (var(--arrow-size) / 2));
+  transform: rotate(-90deg);
+}
 
-    .timelinr-dates-bottom .timelinr-dates li {
-      background: url('../images/biggerdot.png') center -4px no-repeat;
-    }
-
-    .timelinr-dates-right .timelinr-dates li {
-      background: url('../images/biggerdot.png') -3px center no-repeat;
-		}
-
-      .timelinr-issues li {
-        width: 800px;
-        height: 350px;
-        list-style: none;
-        float: left;
-      }
-
-      .timelinr-vertical .timelinr-issues li {
-				width: 400px;
-				height: 600px;
-			}
-
-        .timelinr-issues li.selected img {
-          transform: scale(1,1);
-        }
-
-        .timelinr-issues li img {
-          float: left;
-          margin: 10px 30px;
-          background: transparent;
-          transition: all 2s ease-in-out;
-          transform: scale(0.7,0.7);
-        }
-
-        .timelinr-vertical .timelinr-issues li img {
-					float: none;
-          margin: 10px;
-				}
-
-        .timelinr-issues li h1 {
-          color: #ffcc00;
-          font-size: 48px;
-          margin: 20px 0;
-          text-shadow: #000 1px 1px 2px;
-        }
-
-        .timelinr-issues li p {
-          font-size: 14px;
-          margin-right: 70px;
-          font-weight: normal;
-          line-height: 22px;
-          text-shadow: #000 1px 1px 2px;
-        }
-
-        .timelinr-vertical .timelinr-issues li h1 {
-					text-align: center;
-				}
-
-				.timelinr-vertical .timelinr-issues li p {
-					margin: 10px 20px;
-				}
-    
-    .timelinr-next,
-    .timelinr-prev {
-      position: absolute;
-      font-size: 70px;
-      top: 45%;
-      width: 22px;
-      height: 38px;
-      background-position: 0 0;
-      background-repeat: no-repeat;
-      text-indent: -9999px;
-      z-index: 1;
-    }
-      .timelinr-next:hover,
-      .timelinr-prev:hover {
-        background-position: 0 -76px;
-      }
-
-      .timelinr-prev {
-        left: 0;
-        background-image: url('../images/prev.png');
-      }
-      
-      .timelinr-next {
-        right: 0;
-        background-image: url('../images/next.png');
-      }
-
-    .timelinr-vertical .timelinr-next,
-    .timelinr-vertical .timelinr-prev {
-      top: 0;
-      left: 50%;
-    }
-
-    .timelinr-vertical .timelinr-next {
-      top: auto;
-      bottom: 0;
-      left: 50%;
-    }
+.timelinr-vertical .timelinr-next {
+  top: auto;
+  bottom: 2%;
+  transform: rotate(90deg);
+}
