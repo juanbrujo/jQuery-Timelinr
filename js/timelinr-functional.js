@@ -161,20 +161,68 @@ const normalizeOptions = (options) => {
      * Returns null for non-existent elements to allow safe optional chaining.
      * @returns {Object} Object containing all necessary DOM elements
      */
+    /**
+     * Creates the dates navigation from issues' data-date attributes
+     * @private
+     * @param {HTMLElement} container - Timeline container element
+     * @param {NodeList} issueItems - List of issue items
+     * @returns {HTMLElement} The created dates container
+     */
+    const createDatesFromIssues = (container, issueItems) => {
+        // Create dates container
+        const datesContainer = document.createElement('ul');
+        datesContainer.className = 'timelinr-dates';
+        
+        // Convert NodeList to Array to use Array methods
+        Array.from(issueItems).forEach(issue => {
+            const date = issue.getAttribute('data-date');
+            if (date) {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.textContent = date;
+                li.appendChild(a);
+                datesContainer.appendChild(li);
+            }
+        });
+
+        // Insert dates container at the beginning of the timeline
+        container.insertBefore(datesContainer, container.firstChild);
+        
+        return datesContainer;
+    };
+
+    /**
+     * Gets all required DOM elements for the timeline
+     * @private
+     * @param {HTMLElement} container - Timeline container element
+     * @returns {Object|null} Object containing all necessary DOM elements or null if invalid
+     */
     const getDOMElements = (container) => {
         if (!container) {
             container = document.querySelector('.timelinr');
         }
         if (!container) return null;
 
+        const issues = container.querySelector('.timelinr-issues');
+        const issueItems = issues?.querySelectorAll('li');
+        
+        if (!issues || !issueItems.length) {
+            console.error('Required timeline issues not found');
+            return null;
+        }
+
+        // Create dates dynamically from issues
+        const dates = createDatesFromIssues(container, issueItems);
+        
         return {
             container,
-            dates: container.querySelector('.timelinr-dates'),
-            issues: container.querySelector('.timelinr-issues'),
+            dates,
+            issues,
             prevBtn: container.querySelector('.timelinr-prev'),
             nextBtn: container.querySelector('.timelinr-next'),
-            dateItems: container.querySelectorAll('.timelinr-dates li'),
-            issueItems: container.querySelectorAll('.timelinr-issues li')
+            dateItems: dates.querySelectorAll('li'),
+            issueItems
         };
     };
 
