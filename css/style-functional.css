@@ -48,51 +48,62 @@ h1,h2,h4,h5,h6 {
     position: relative;
   }
 
-  /* Dates positioning styles */
-  .timelinr.dates-above {
-    background: url('../images/dot.gif') left 105px repeat-x;
+  .timelinr:after,
+  .timelinr:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #222;
+    background: linear-gradient(90deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
   }
 
-  .timelinr.dates-below {
-    background: url('../images/dot.gif') left 45px repeat-x;
+  .timelinr:after {
+    left: auto;
+    right: 0;
+    background: linear-gradient(270deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
   }
 
   .timelinr-dates {
     width: 800px;
-    height: 60px;
-    overflow: hidden;
+    height: 50px;
   }
 
-  /* Specific margins for dates position */
-  .dates-above .timelinr-dates {
-    margin-bottom: 20px;
-  }
-
-  .dates-below .timelinr-dates {
-    margin-top: 20px;
-  }
       .timelinr-dates li {
         list-style: none;
         float: left;
         width: 100px;
         height: 50px;
+        line-height: 50px;
         font-size: 24px;
         text-align: center;
-        background: url('../images/biggerdot.png') center bottom no-repeat;
+        background: url('../images/biggerdot.png') center 47px no-repeat;
       }
         .timelinr-dates a {
           line-height: 38px;
           padding-bottom: 10px;
         }
         .timelinr-dates .selected {
-              font-size: 38px;
+          font-size: 38px;
         }
     
     .timelinr-issues {
       width: 800px;
       height: 350px;
-      overflow: hidden;
-    } 
+      padding: 20px 0;
+      background: url('../images/dot.gif') left top repeat-x;
+    }
+
+    .dates-below .timelinr-issues {
+      background: url('../images/dot.gif') left bottom repeat-x;
+    }
+
+    .dates-below .timelinr-dates li {
+      background: url('../images/biggerdot.png') center -4px no-repeat;
+    }
+
       .timelinr-issues li {
         width: 800px;
         height: 350px;
@@ -100,7 +111,6 @@ h1,h2,h4,h5,h6 {
         float: left;
       }
         .timelinr-issues li.selected img {
-          -webkit-transform: scale(1.1,1.1);
           transform: scale(1.1,1.1);
         }
         .timelinr-issues li img {
@@ -124,22 +134,6 @@ h1,h2,h4,h5,h6 {
           text-shadow: #000 1px 1px 2px;
         }
     
-    .grad_left,
-    .grad_right {
-      width: 100px;
-      height: 350px;
-      position: absolute;
-      top: 0;
-    }
-      .grad_left {
-            left: 0;
-            background: url('../images/grad_left.png') repeat-y;
-      }
-      .grad_right {
-            right: 0;
-            background: url('../images/grad_right.png') repeat-y;
-      }
-    
     .timelinr-next,
     .timelinr-prev {
       position: absolute;
@@ -151,7 +145,7 @@ h1,h2,h4,h5,h6 {
       background-position: 0 0;
       background-repeat: no-repeat;
       text-indent: -9999px;
-      overflow: hidden;
+      z-index: 1;
     }
       .timelinr-next:hover,
       .timelinr-prev:hover {
