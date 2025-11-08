@@ -94,15 +94,19 @@ const createTimelinr = (userOptions = {}) => {
  * @param {TimelinrOptions} options - Raw user options
  * @returns {TimelinrOptions} Normalized options with proper types and defaults
  */
-const normalizeOptions = (options) => {
+    const normalizeOptions = (options) => {
         const normalizedOptions = {
             ...options,
             arrowKeys: Boolean(options.arrowKeys),
             autoPlay: Boolean(options.autoPlay),
-            pauseOnHover: 'pauseOnHover' in options ? Boolean(options.pauseOnHover) : true
+            pauseOnHover: 'pauseOnHover' in options ? Boolean(options.pauseOnHover) : true,
+            datesPosition: options.datesPosition?.toLowerCase() === 'below' ? 'below' : 'above'
         };
 
-        // Validate and warn about autoplay-related settings
+        // Validate datesPosition when orientation is not horizontal
+        if (options.orientation !== 'horizontal' && options.datesPosition) {
+            console.warn('datesPosition setting only applies when orientation is horizontal');
+        }        // Validate and warn about autoplay-related settings
         if (!normalizedOptions.autoPlay) {
             if ('autoPlayDirection' in options) {
                 console.warn('Setting autoPlayDirection has no effect when autoPlay is false');
@@ -135,6 +139,7 @@ const normalizeOptions = (options) => {
 
     const settings = Object.assign({
         orientation: 'horizontal',
+        datesPosition: 'above', // 'above' or 'below', only used when orientation is horizontal
         datesSpeed: 300,
         issuesSpeed: 200,
         arrowKeys: false,
@@ -186,10 +191,54 @@ const normalizeOptions = (options) => {
             }
         });
 
-        // Insert dates container at the beginning of the timeline
-        container.insertBefore(datesContainer, container.firstChild);
+        // Position the dates container based on settings
+        if (settings.orientation === 'horizontal') {
+            if (settings.datesPosition === 'below') {
+                // Insert after issues
+                container.querySelector('.timelinr-issues').after(datesContainer);
+            } else {
+                // Insert at the beginning (above)
+                container.insertBefore(datesContainer, container.firstChild);
+            }
+        } else {
+            // For vertical orientation, always insert at the beginning
+            container.insertBefore(datesContainer, container.firstChild);
+        }
+        
+        // Add position class for styling
+        container.classList.add(`dates-${settings.orientation === 'horizontal' ? settings.datesPosition : 'left'}`);
         
         return datesContainer;
+    };
+
+    /**
+     * Creates navigation arrows for the timeline
+     * @private
+     * @param {HTMLElement} container - Timeline container element
+     * @returns {Object} Object containing the created navigation buttons
+     */
+    const createNavigationArrows = (container) => {
+        if (!settings.arrowKeys) {
+            return { prevBtn: null, nextBtn: null };
+        }
+
+        // Create prev button
+        const prevBtn = document.createElement('a');
+        prevBtn.href = '#';
+        prevBtn.className = 'timelinr-prev';
+        prevBtn.textContent = '−';
+        
+        // Create next button
+        const nextBtn = document.createElement('a');
+        nextBtn.href = '#';
+        nextBtn.className = 'timelinr-next';
+        nextBtn.textContent = '+';
+        
+        // Add buttons to container
+        container.appendChild(prevBtn);
+        container.appendChild(nextBtn);
+        
+        return { prevBtn, nextBtn };
     };
 
     /**
@@ -215,12 +264,15 @@ const normalizeOptions = (options) => {
         // Create dates dynamically from issues
         const dates = createDatesFromIssues(container, issueItems);
         
+        // Create navigation arrows if enabled
+        const { prevBtn, nextBtn } = createNavigationArrows(container);
+        
         return {
             container,
             dates,
             issues,
-            prevBtn: container.querySelector('.timelinr-prev'),
-            nextBtn: container.querySelector('.timelinr-next'),
+            prevBtn,
+            nextBtn,
             dateItems: dates.querySelectorAll('li'),
             issueItems
         };
