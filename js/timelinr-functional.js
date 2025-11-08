@@ -13,7 +13,7 @@
  * @property {string} [orientation='horizontal'] - Timeline orientation ('horizontal' or 'vertical')
  * @property {number} [datesSpeed=300] - Animation speed for dates in milliseconds
  * @property {number} [issuesSpeed=200] - Animation speed for issues in milliseconds
- * @property {boolean} [arrowKeys=false] - Enable keyboard arrow navigation
+ * @property {boolean} [arrowKeys=true] - Enable navigation buttons
  * @property {number} [startAt=1] - Starting position (1-based index)
  * @property {boolean} [autoPlay=false] - Enable automatic cycling through timeline items
  * @property {string} [autoPlayDirection='forward'] - Direction of autoplay ('forward' or 'backward')
@@ -30,7 +30,7 @@
  * 
  * Features:
  * - Horizontal or vertical orientation
- * - Keyboard navigation support
+ * - Navigation button support
  * - Auto-play capability with continuous looping
  * - Smooth transitions and animations
  * - Responsive design
@@ -39,16 +39,10 @@
  * Required HTML Structure:
  * ```html
  * <div class="timelinr">
- *   <ul class="timelinr-dates">
- *     <li><a href="#">Date 1</a></li>
- *     <li><a href="#">Date 2</a></li>
- *   </ul>
  *   <ul class="timelinr-issues">
- *     <li>Content 1</li>
- *     <li>Content 2</li>
+ *     <li data-date="1900">Content 1</li>
+ *     <li data-date="2000">Content 2</li>
  *   </ul>
- *   <button class="timelinr-prev">Previous</button>
- *   <button class="timelinr-next">Next</button>
  * </div>
  * ```
  * 
@@ -57,7 +51,7 @@
  * document.querySelectorAll('.timelinr').forEach(container => {
  *   const timeline = createTimelinr({
  *     orientation: 'horizontal',
- *     arrowKeys: true,
+ *     arrowKeys: true, // Enable navigation buttons
  *     autoPlay: false
  *   });
  *   const cleanup = timeline.init(container);
@@ -104,9 +98,10 @@ const createTimelinr = (userOptions = {}) => {
         };
 
         // Validate datesPosition when orientation is not horizontal
-        if (options.orientation !== 'horizontal' && options.datesPosition) {
+        if (options.orientation && options.orientation !== 'horizontal' && options.datesPosition) {
             console.warn('datesPosition setting only applies when orientation is horizontal');
-        }        // Validate and warn about autoplay-related settings
+        }        
+        // Validate and warn about autoplay-related settings
         if (!normalizedOptions.autoPlay) {
             if ('autoPlayDirection' in options) {
                 console.warn('Setting autoPlayDirection has no effect when autoPlay is false');
@@ -142,10 +137,10 @@ const createTimelinr = (userOptions = {}) => {
         datesPosition: 'above', // 'above' or 'below', only used when orientation is horizontal
         datesSpeed: 300,
         issuesSpeed: 200,
-        arrowKeys: false,
+        arrowKeys: true,
         startAt: 1,
         autoPlay: false,
-        pauseOnHover: true
+        pauseOnHover: false
     }, normalizeOptions(userOptions));
 
     /**
@@ -206,7 +201,7 @@ const createTimelinr = (userOptions = {}) => {
         }
         
         // Add position class for styling
-        container.classList.add(`dates-${settings.orientation === 'horizontal' ? settings.datesPosition : 'left'}`);
+        container.classList.add(`timelinr-dates-${settings.orientation === 'horizontal' ? (settings.datesPosition === 'above' ? 'top' : 'bottom') : 'left'}`);
         
         return datesContainer;
     };
@@ -543,7 +538,7 @@ const prev = () => {
     /**
      * Sets up all event listeners for the timeline.
      * Uses event delegation for better performance.
-     * Includes click handlers, keyboard navigation, and cleanup.
+     * Includes click handlers, navigation buttons, and cleanup.
      * @param {Object} elements - DOM elements
      * @returns {Function} Cleanup function to remove all event listeners
      */
@@ -579,17 +574,6 @@ const prev = () => {
             cleanupFunctions.push(() => {
                 elements.prevBtn.removeEventListener('click', handlePrevClick);
                 elements.nextBtn.removeEventListener('click', handleNextClick);
-            });
-
-            // Keyboard navigation
-            const handleKeyPress = e => {
-                if (e.key === 'ArrowLeft') prev();
-                else if (e.key === 'ArrowRight') next();
-            };
-
-            document.addEventListener('keydown', handleKeyPress);
-            cleanupFunctions.push(() => {
-                document.removeEventListener('keydown', handleKeyPress);
             });
         }
 
@@ -699,11 +683,16 @@ const setupAutoPlay = () => {
     const init = (container) => {
         state.elements = getDOMElements(container);
         
-        if (!state.elements?.container || 
-            !state.elements.dates || 
+        if (!state.elements?.container ||
+            !state.elements.dates ||
             !state.elements.issues) {
             console.error('Required elements not found');
             return null;
+        }
+
+        // Add orientation-specific class
+        if (settings.orientation === 'vertical') {
+            container.classList.add('timelinr-vertical');
         }
 
         state.dimensions = calculateDimensions(state.elements);

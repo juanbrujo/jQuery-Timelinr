@@ -48,6 +48,12 @@ h1,h2,h4,h5,h6 {
     position: relative;
   }
 
+   .timelinr-vertical {
+		width: 540px;
+		height: 600px;
+		margin: 40px auto;
+	}
+
   .timelinr:after,
   .timelinr:before {
     content: '';
@@ -58,12 +64,26 @@ h1,h2,h4,h5,h6 {
     height: 100%;
     background-color: #222;
     background: linear-gradient(90deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
+    pointer-events: none;
   }
 
   .timelinr:after {
     left: auto;
     right: 0;
     background: linear-gradient(270deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
+  }
+
+  .timelinr-vertical:after,
+  .timelinr-vertical:before {
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(180deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
+  }
+
+  .timelinr-vertical:after {
+    top: auto;
+    bottom: 0;
+    background: linear-gradient(0deg,rgba(34, 34, 34, 1) 30%, rgba(34, 34, 34, 0) 100%);
   }
 
   .timelinr-dates {
@@ -81,26 +101,47 @@ h1,h2,h4,h5,h6 {
         text-align: center;
         background: url('../images/biggerdot.png') center 47px no-repeat;
       }
+
         .timelinr-dates a {
           line-height: 38px;
           padding-bottom: 10px;
         }
+      
         .timelinr-dates .selected {
           font-size: 38px;
         }
     
+    .timelinr-vertical .timelinr-dates {
+			width: 140px;
+			height: 600px;
+			float: left;
+		}
+			.timelinr-vertical .timelinr-dates li {
+        width: 100%;
+				height: 100px;
+				line-height: 100px;
+				background: url('../images/biggerdot.png') 137px center no-repeat;
+			}
+
     .timelinr-issues {
       width: 800px;
       height: 350px;
       padding: 20px 0;
       background: url('../images/dot.gif') left top repeat-x;
     }
+    
+    .timelinr-vertical .timelinr-issues {
+			width: 400px;
+			height: 600px;
+			float: left;
+      background: url('../images/dot.gif') 3px top repeat-y;
+		}	
 
-    .dates-below .timelinr-issues {
+    .timelinr-dates-bottom .timelinr-issues {
       background: url('../images/dot.gif') left bottom repeat-x;
     }
 
-    .dates-below .timelinr-dates li {
+    .timelinr-dates-bottom .timelinr-dates li {
       background: url('../images/biggerdot.png') center -4px no-repeat;
     }
 
@@ -110,22 +151,36 @@ h1,h2,h4,h5,h6 {
         list-style: none;
         float: left;
       }
+
+      .timelinr-vertical .timelinr-issues li {
+				width: 400px;
+				height: 600px;
+			}
+
         .timelinr-issues li.selected img {
-          transform: scale(1.1,1.1);
+          transform: scale(1,1);
         }
+
         .timelinr-issues li img {
           float: left;
-          margin: 10px 30px 10px 50px;
+          margin: 10px 30px;
           background: transparent;
           transition: all 2s ease-in-out;
           transform: scale(0.7,0.7);
         }
+
+        .timelinr-vertical .timelinr-issues li img {
+					float: none;
+          margin: 10px;
+				}
+
         .timelinr-issues li h1 {
           color: #ffcc00;
           font-size: 48px;
           margin: 20px 0;
           text-shadow: #000 1px 1px 2px;
         }
+
         .timelinr-issues li p {
           font-size: 14px;
           margin-right: 70px;
@@ -133,6 +188,14 @@ h1,h2,h4,h5,h6 {
           line-height: 22px;
           text-shadow: #000 1px 1px 2px;
         }
+
+        .timelinr-vertical .timelinr-issues li h1 {
+					text-align: center;
+				}
+
+				.timelinr-vertical .timelinr-issues li p {
+					margin: 10px 20px;
+				}
     
     .timelinr-next,
     .timelinr-prev {
@@ -151,15 +214,13 @@ h1,h2,h4,h5,h6 {
       .timelinr-prev:hover {
         background-position: 0 -76px;
       }
+      
       .timelinr-next {
         right: 0;
         background-image: url('../images/next.png');
       }
+
       .timelinr-prev {
         left: 0;
         background-image: url('../images/prev.png');
       }
-        .timelinr-next.disabled,
-        .timelinr-prev.disabled {
-          opacity: 0.2;
-        }

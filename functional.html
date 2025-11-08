@@ -15,17 +15,17 @@
             // Initialize all timelines on the page
             document.querySelectorAll('.timelinr').forEach((container, index) => {
                 const options = index === 0 ? {
-                    // First timeline: manual navigation
                     arrowKeys: true
+                } : index === 1 ? {
+                    orientation: 'vertical',
                 } : {
-                    // Second timeline: autoplay backwards with pause on hover
                     startAt: 4,
                     datesPosition: 'below',
                     arrowKeys: false,
                     autoPlay: true,
                     autoPlayDirection: 'forward',
-                    autoPlayPause: 2000, // 2 seconds between transitions
-                    pauseOnHover: true   // Will pause on mouse hover
+                    autoPlayPause: 2000,
+                    pauseOnHover: true
                 };
                 
                 const timeline = createTimelinr(options);
@@ -83,8 +83,25 @@
         <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
       </li>
     </ul>
-    <div class="grad_left"></div>
-    <div class="grad_right"></div>
+  </div>
+
+  <div class="timelinr">
+  <ul class="timelinr-issues">
+  <li data-date="900-AC">
+        <img src="images/6.png" width="256" height="256" />
+        <h1>900-AC</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="10-AC">
+        <img src="images/7.png" width="256" height="256" />
+        <h1>10-AC</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+      </li>
+      <li data-date="12-BC">
+        <img src="images/8.png" width="256" height="256" />
+        <h1>12-BC</h1>
+        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+    </ul>
   </div>
 
   <div class="timelinr">
@@ -115,8 +132,6 @@
         <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
       </li>
     </ul>
-    <div class="grad_left"></div>
-    <div class="grad_right"></div>
   </div>
 </body>
 </html>
