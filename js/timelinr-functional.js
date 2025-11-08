@@ -91,11 +91,12 @@ const createTimelinr = (userOptions = {}) => {
     const normalizeOptions = (options) => {
         const normalizedOptions = {
             ...options,
-            arrowKeys: Boolean(options.arrowKeys),
-            autoPlay: Boolean(options.autoPlay),
             pauseOnHover: 'pauseOnHover' in options ? Boolean(options.pauseOnHover) : true,
             datesPosition: options.datesPosition?.toLowerCase() === 'below' ? 'below' : 'above'
         };
+
+        if ('arrowKeys' in options) normalizedOptions.arrowKeys = Boolean(options.arrowKeys);
+        if ('autoPlay' in options) normalizedOptions.autoPlay = Boolean(options.autoPlay);
 
         // Validate datesPosition when orientation is not horizontal
         if (options.orientation && options.orientation !== 'horizontal' && options.datesPosition) {
@@ -142,7 +143,7 @@ const createTimelinr = (userOptions = {}) => {
         autoPlay: false,
         pauseOnHover: false
     }, normalizeOptions(userOptions));
-
+console.log(settings)
     /**
      * Internal state management using closure.
      * Keeps track of current position, DOM elements, and runtime data.
@@ -213,26 +214,29 @@ const createTimelinr = (userOptions = {}) => {
      * @returns {Object} Object containing the created navigation buttons
      */
     const createNavigationArrows = (container) => {
-        if (!settings.arrowKeys) {
-            return { prevBtn: null, nextBtn: null };
-        }
-
         // Create prev button
         const prevBtn = document.createElement('a');
         prevBtn.href = '#';
         prevBtn.className = 'timelinr-prev';
         prevBtn.textContent = '−';
-        
+
         // Create next button
         const nextBtn = document.createElement('a');
         nextBtn.href = '#';
         nextBtn.className = 'timelinr-next';
         nextBtn.textContent = '+';
-        
+
+        // Hide buttons if arrowKeys is false
+        if (!settings.arrowKeys) {
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+            console.log(settings.arrowKeys)
+        }
+
         // Add buttons to container
         container.appendChild(prevBtn);
         container.appendChild(nextBtn);
-        
+
         return { prevBtn, nextBtn };
     };
 
