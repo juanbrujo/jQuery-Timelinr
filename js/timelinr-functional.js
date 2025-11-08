@@ -92,16 +92,34 @@ const createTimelinr = (userOptions = {}) => {
         const normalizedOptions = {
             ...options,
             pauseOnHover: 'pauseOnHover' in options ? Boolean(options.pauseOnHover) : true,
-            datesPosition: options.datesPosition?.toLowerCase() === 'below' ? 'below' : 'above'
+            datesPosition: (() => {
+                let pos = 'top'; // default for horizontal
+                if (options.datesPosition) {
+                    const p = options.datesPosition.toLowerCase();
+                    if (p === 'bottom' || p === 'below') pos = 'bottom';
+                    else if (p === 'above') pos = 'top';
+                    else if (p === 'left') pos = 'left';
+                    else if (p === 'right') pos = 'right';
+                    else pos = 'top'; // invalid, default to top
+                } else if (options.orientation === 'vertical') {
+                    pos = 'left';
+                }
+                // Validation
+                if (options.orientation === 'vertical' && (pos === 'top' || pos === 'bottom')) {
+                    console.warn(`datesPosition '${pos}' not valid for vertical orientation, defaulting to 'left'`);
+                    pos = 'left';
+                } else if (options.orientation === 'horizontal' && (pos === 'left' || pos === 'right')) {
+                    console.warn(`datesPosition '${pos}' not valid for horizontal orientation, defaulting to 'top'`);
+                    pos = 'top';
+                }
+                return pos;
+            })()
         };
 
         if ('arrowKeys' in options) normalizedOptions.arrowKeys = Boolean(options.arrowKeys);
         if ('autoPlay' in options) normalizedOptions.autoPlay = Boolean(options.autoPlay);
 
-        // Validate datesPosition when orientation is not horizontal
-        if (options.orientation && options.orientation !== 'horizontal' && options.datesPosition) {
-            console.warn('datesPosition setting only applies when orientation is horizontal');
-        }        
+        // Validation for datesPosition is now handled in the datesPosition setter above        
         // Validate and warn about autoplay-related settings
         if (!normalizedOptions.autoPlay) {
             if ('autoPlayDirection' in options) {
@@ -135,7 +153,7 @@ const createTimelinr = (userOptions = {}) => {
 
     const settings = Object.assign({
         orientation: 'horizontal',
-        datesPosition: 'above', // 'above' or 'below', only used when orientation is horizontal
+        datesPosition: 'top', // 'top' or 'bottom' for horizontal, 'left' or 'right' for vertical
         datesSpeed: 300,
         issuesSpeed: 200,
         arrowKeys: true,
@@ -143,7 +161,7 @@ const createTimelinr = (userOptions = {}) => {
         autoPlay: false,
         pauseOnHover: false
     }, normalizeOptions(userOptions));
-console.log(settings)
+
     /**
      * Internal state management using closure.
      * Keeps track of current position, DOM elements, and runtime data.
@@ -189,20 +207,26 @@ console.log(settings)
 
         // Position the dates container based on settings
         if (settings.orientation === 'horizontal') {
-            if (settings.datesPosition === 'below') {
+            if (settings.datesPosition === 'bottom') {
                 // Insert after issues
                 container.querySelector('.timelinr-issues').after(datesContainer);
             } else {
-                // Insert at the beginning (above)
+                // Insert at the beginning (top)
                 container.insertBefore(datesContainer, container.firstChild);
             }
         } else {
-            // For vertical orientation, always insert at the beginning
-            container.insertBefore(datesContainer, container.firstChild);
+            // For vertical orientation
+            if (settings.datesPosition === 'right') {
+                // Insert after issues
+                container.querySelector('.timelinr-issues').after(datesContainer);
+            } else {
+                // Insert at the beginning (left)
+                container.insertBefore(datesContainer, container.firstChild);
+            }
         }
-        
+
         // Add position class for styling
-        container.classList.add(`timelinr-dates-${settings.orientation === 'horizontal' ? (settings.datesPosition === 'above' ? 'top' : 'bottom') : 'left'}`);
+        container.classList.add(`timelinr-dates-${settings.datesPosition}`);
         
         return datesContainer;
     };
@@ -230,7 +254,6 @@ console.log(settings)
         if (!settings.arrowKeys) {
             prevBtn.style.display = 'none';
             nextBtn.style.display = 'none';
-            console.log(settings.arrowKeys)
         }
 
         // Add buttons to container

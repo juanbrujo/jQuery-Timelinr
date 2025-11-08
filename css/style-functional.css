@@ -134,8 +134,12 @@ h1,h2,h4,h5,h6 {
 			width: 400px;
 			height: 600px;
 			float: left;
-      background: url('../images/dot.gif') 3px top repeat-y;
-		}	
+      background: url('../images/dot.gif') left top repeat-y;
+		}
+
+    .timelinr-dates-right .timelinr-issues {
+      background: url('../images/dot.gif') right top repeat-y;
+		}
 
     .timelinr-dates-bottom .timelinr-issues {
       background: url('../images/dot.gif') left bottom repeat-x;
@@ -144,6 +148,10 @@ h1,h2,h4,h5,h6 {
     .timelinr-dates-bottom .timelinr-dates li {
       background: url('../images/biggerdot.png') center -4px no-repeat;
     }
+
+    .timelinr-dates-right .timelinr-dates li {
+      background: url('../images/biggerdot.png') -3px center no-repeat;
+		}
 
       .timelinr-issues li {
         width: 800px;
@@ -200,9 +208,8 @@ h1,h2,h4,h5,h6 {
     .timelinr-next,
     .timelinr-prev {
       position: absolute;
-      top: 0;
       font-size: 70px;
-      top: 170px;
+      top: 45%;
       width: 22px;
       height: 38px;
       background-position: 0 0;
@@ -214,13 +221,25 @@ h1,h2,h4,h5,h6 {
       .timelinr-prev:hover {
         background-position: 0 -76px;
       }
+
+      .timelinr-prev {
+        left: 0;
+        background-image: url('../images/prev.png');
+      }
       
       .timelinr-next {
         right: 0;
         background-image: url('../images/next.png');
       }
 
-      .timelinr-prev {
-        left: 0;
-        background-image: url('../images/prev.png');
-      }
+    .timelinr-vertical .timelinr-next,
+    .timelinr-vertical .timelinr-prev {
+      top: 0;
+      left: 50%;
+    }
+
+    .timelinr-vertical .timelinr-next {
+      top: auto;
+      bottom: 0;
+      left: 50%;
+    }
