@@ -339,15 +339,15 @@ const createTimelinr = (userOptions = {}) => {
         }
 
         // Set up transitions for smooth animations with explicit properties
-        elements.issues.style.transition = `margin ${settings.issuesSpeed}ms ease-in-out`;
-        elements.dates.style.transition = `margin ${settings.datesSpeed}ms ease-in-out`;
+        elements.issues.style.transition = `transform ${settings.issuesSpeed}ms ease-in-out`;
+        elements.dates.style.transition = `transform ${settings.datesSpeed}ms ease-in-out`;
         
         // Initial centering of the first date
         const centerPos = calculateCenterPosition(dimensions, state.currentIndex, isHorizontal);
         if (isHorizontal) {
-            elements.dates.style.marginLeft = `${centerPos}px`;
+            elements.dates.style.transform = `${centerPos}px`;
         } else {
-            elements.dates.style.marginTop = `${centerPos}px`;
+            elements.dates.style.transform = `${centerPos}px`;
         }
     };
 
@@ -404,18 +404,18 @@ const updatePosition = (elements, dimensions, index) => {
         
         // Update issues container position
         if (isHorizontal) {
-            elements.issues.style.marginLeft = `${-dimensions.issueWidth * index}px`;
+            elements.issues.style.transform = `translateX(${-dimensions.issueWidth * index}px)`;
         } else {
-            elements.issues.style.marginTop = `${-dimensions.issueHeight * index}px`;
+            elements.issues.style.transform = `translateY(${-dimensions.issueHeight * index}px)`;
         }
 
         // Calculate and set the centered position for dates
         const centerPos = calculateCenterPosition(dimensions, index, isHorizontal);
-        
+
         if (isHorizontal) {
-            elements.dates.style.marginLeft = `${centerPos}px`;
+            elements.dates.style.transform = `translateX(${centerPos}px)`;
         } else {
-            elements.dates.style.marginTop = `${centerPos}px`;
+            elements.dates.style.transform = `translateY(${centerPos}px)`;
         }
     };
 
