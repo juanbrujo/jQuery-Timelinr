@@ -115,11 +115,11 @@ body {
 
 .timelinr-issues {
   width: 800px;
-  height: 200px;
-  padding: 20px 0;
+  min-height: 200px;
   border-width: 1px 0 0;
   border-style: solid;
   border-color: var(--color-date-line);
+  overflow: auto;
 }
 
 .timelinr-dates-bottom .timelinr-issues {
@@ -167,8 +167,8 @@ body {
 
 /* Vertical */
 .timelinr-vertical {
-  width: 540px;
-  height: 400px;
+  width: 800px;
+  height: 320px;
 }
 
 .timelinr-vertical::after,
@@ -186,7 +186,7 @@ body {
 
 .timelinr-vertical .timelinr-dates {
   width: 120px;
-  height: 400px;
+  height: 300px;
   float: left;
 }
 
@@ -202,8 +202,7 @@ body {
 }
 
 .timelinr-vertical .timelinr-issues {
-  width: 400px;
-  height: 380px;
+  width: 660px;
   float: left;
   border-width: 0 0 0 1px;
 }
@@ -212,16 +211,15 @@ body {
   border-width: 0 1px 0 0;
 }
 
+.timelinr-vertical .timelinr-issues li {
+  width: 660px;
+  height: 300px;
+}
+
 .timelinr-dates-right .timelinr-dates li::before {
   left: calc((var(--dot-size) / 2) * -1);
   right: auto;
   bottom: auto;
-  /* background: url('../images/biggerdot.png') -3px center no-repeat; */
-}
-
-.timelinr-vertical .timelinr-issues li {
-  width: 400px;
-  height: 380px;
 }
 
 .timelinr-vertical .timelinr-next,
