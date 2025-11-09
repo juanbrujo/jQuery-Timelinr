@@ -2,9 +2,10 @@
   --color-bg: #cccccc;
   --color-bg-rgb: 255, 255, 255;
   --color-text: #333333;
-  --color-link: #b57b12;
+  --color-link: #999999;
   --color-link-hover: #de6418;
   --arrow-size: 30px;
+  --color-date-line: #999999;
 }
 
 *, *::before, *::after {
@@ -88,7 +89,12 @@ body {
   width: var(--dot-size);
   height: var(--dot-size);
   border-radius: 50%;
-  background-color: var(--color-text);
+  background-color: var(--color-date-line);
+}
+
+.timelinr-dates-bottom .timelinr-dates li::before {
+  top: calc((var(--dot-size) / 2) * -1);
+  bottom: auto;
 }
 
 .timelinr-dates a {
@@ -104,23 +110,20 @@ body {
 }
 
 .timelinr-dates .current::before {
-  background-color: var(--color-link-hover)
+  background-color: var(--color-link-hover);
 }
 
 .timelinr-issues {
   width: 800px;
   height: 200px;
   padding: 20px 0;
-  /* background: url('../images/dot.gif') left top repeat-x; */
-  border-top: 1px solid var(--color-text);
+  border-width: 1px 0 0;
+  border-style: solid;
+  border-color: var(--color-date-line);
 }
 
 .timelinr-dates-bottom .timelinr-issues {
-  background: url('../images/dot.gif') left bottom repeat-x;
-}
-
-.timelinr-dates-bottom .timelinr-dates li {
-  background: url('../images/biggerdot.png') center -4px no-repeat;
+  border-width: 0 0 1px;
 }
 
 .timelinr-issues li {
@@ -134,33 +137,6 @@ body {
 .timelinr-issues .inner-content {
   padding: 20px 40px;
 }
-/* 
-.timelinr-issues li.selected img {
-  transform: scale(1,1);
-}
-
-.timelinr-issues li img {
-  float: left;
-  margin: 10px 30px;
-  background: transparent;
-  transition: all 2s ease-in-out;
-  transform: scale(0.7,0.7);
-}
-
-.timelinr-issues li h1 {
-  color: var(--color-link-selected);
-  font-size: 48px;
-  margin: 20px 0;
-  text-shadow: var(--color-shadow) 1px 1px 2px;
-}
-
-.timelinr-issues li p {
-  font-size: 14px;
-  margin-right: 70px;
-  font-weight: normal;
-  line-height: 22px;
-  text-shadow: var(--color-shadow) 1px 1px 2px;
-} */
   
 .timelinr-next,
 .timelinr-prev {
@@ -171,7 +147,7 @@ body {
   display: flex;
   text-align: center;
   align-content: center;
-  font-size: 22px;
+  font-size: 18px;
   color: white;
   text-decoration: none;
   line-height: 1;
@@ -193,7 +169,6 @@ body {
 .timelinr-vertical {
   width: 540px;
   height: 400px;
-  padding: 0 20px;
 }
 
 .timelinr-vertical::after,
@@ -210,7 +185,7 @@ body {
 }
 
 .timelinr-vertical .timelinr-dates {
-  width: 140px;
+  width: 120px;
   height: 400px;
   float: left;
 }
@@ -218,23 +193,30 @@ body {
 .timelinr-vertical .timelinr-dates li {
   width: 100%;
   height: 100px;
-  line-height: 100px;
-  background: url('../images/biggerdot.png') 137px center no-repeat;
+}
+
+.timelinr-vertical .timelinr-dates li::before {
+  left: auto;
+  right: calc((var(--dot-size) / 2) * -1);
+  bottom: auto;
 }
 
 .timelinr-vertical .timelinr-issues {
   width: 400px;
-  height: 400px;
+  height: 380px;
   float: left;
-  background: url('../images/dot.gif') left top repeat-y;
+  border-width: 0 0 0 1px;
 }
 
 .timelinr-dates-right .timelinr-issues {
-  background: url('../images/dot.gif') right top repeat-y;
+  border-width: 0 1px 0 0;
 }
 
-.timelinr-dates-right .timelinr-dates li {
-  background: url('../images/biggerdot.png') -3px center no-repeat;
+.timelinr-dates-right .timelinr-dates li::before {
+  left: calc((var(--dot-size) / 2) * -1);
+  right: auto;
+  bottom: auto;
+  /* background: url('../images/biggerdot.png') -3px center no-repeat; */
 }
 
 .timelinr-vertical .timelinr-issues li {

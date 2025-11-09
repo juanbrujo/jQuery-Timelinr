@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidatos Distrito 11 - Elecciones 2025</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 10mm; }
+            table { page-break-inside: auto; }
+            tr { page-break-inside: avoid; page-break-after: auto; }
+            .no-print { display: none; }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            font-size: 10pt;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 20pt;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 12pt;
+            font-weight: bold;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 10px 8px;
+            text-align: left;
+            font-size: 9pt;
+            border: 1px solid #2c3e50;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            font-size: 9pt;
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+            transition: background-color 0.3s ease;
+        }
+        
+        .pacto-header {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            font-weight: bold;
+            padding: 12px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 12pt;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .reeleccion {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            font-weight: bold;
+            color: #155724;
+        }
+        
+        .debut {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14pt;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .print-btn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="handlePrint()">🖨️ Imprimir / Guardar PDF</button>
+    
+    <script>
+        function handlePrint() {
+            window.print();
+        }
+    </script>
+    
+    <h1>CANDIDATOS A DIPUTADOS - DISTRITO 11</h1>
+    <div class="subtitle">Elecciones Parlamentarias 2025 - 16 de Noviembre</div>
+    
+    <div class="info-box">
+        <strong>Comunas:</strong> La Reina, Las Condes, Lo Barnechea, Peñalolén y Vitacura<br>
+        <strong>Electores:</strong> 741.613 | <strong>Escaños:</strong> 6 diputados
+    </div>
+
+    <!-- LISTA B -->
+    <div class="pacto-header">LISTA B - VERDES, REGIONALISTAS Y HUMANISTAS</div>
+    <table>
+        <tr>
+            <th style="width: 15%;">Nombre</th>
+            <th style="width: 5%;">Edad</th>
+            <th style="width: 12%;">Profesión</th>
+            <th style="width: 5%;">N° Voto</th>
+            <th style="width: 15%;">Partido</th>
+            <th style="width: 38%;">Descripción</th>
+            <th style="width: 10%;">Estado</th>
+        </tr>
+        <tr>
+            <td>Tomás René Hirsch Goldschmidt</td>
+            <td>69</td>
+            <td>Administrador de Empresas</td>
+            <td>B51</td>
+            <td>Acción Humanista (AH)</td>
+            <td>Actual diputado por el Distrito 11 y presidente de Acción Humanista. Ex candidato presidencial en 1999 y 2008.</td>
+            <td class="reeleccion">REELECCIÓN</td>
+        </tr>
+        <tr>
+            <td>Elizabeth Adriana Contreras Becerra</td>
+            <td>44</td>
+            <td>Ingeniera Comercial e Ing. en Comercio Exterior</td>
+            <td>B52</td>
+            <td>Independiente (IND) - AH</td>
+            <td>Ingeniera Comercial, aboga por causas animalistas.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Catalina Deyanira Vidal Méndez</td>
+            <td>32</td>
+            <td>Trabajadora Social</td>
+            <td>B53</td>
+            <td>Acción Humanista (AH)</td>
+            <td>Vicepresidenta de Acción Humanista. Fue asesora en Subsecretaría de Bienes Nacionales. Trabajadora social U. San Sebastián.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Pedro Jorge Davis Urzúa</td>
+            <td>75</td>
+            <td>Ingeniero Comercial</td>
+            <td>B54</td>
+            <td>Independiente (IND) - AH</td>
+            <td>Ex concejal de La Reina (2012-2016). Gestor de empresas. Ingeniero Comercial U. de Chile.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Myriam de las Mercedes Meza Ancatén</td>
+            <td>42</td>
+            <td>-</td>
+            <td>B55</td>
+            <td>Acción Humanista (AH)</td>
+            <td>Dirigenta vecinal de Lo Barnechea, fue candidata a concejala por la comuna.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Germán Luis Rojas Volmar</td>
+            <td>61</td>
+            <td>Ingeniero Comercial</td>
+            <td>B56</td>
+            <td>Federación Regionalista Verde Social (FRVS)</td>
+            <td>Ingeniero Comercial U. Austral. Ha sido presidente regional en la RM del FRVS.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Mylai Melina Gianelli Altamirano</td>
+            <td>50</td>
+            <td>Periodista</td>
+            <td>B57</td>
+            <td>Federación Regionalista Verde Social (FRVS)</td>
+            <td>Ex candidata a concejala por La Reina. Periodista y Comunicadora Audiovisual Uniacc.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+    </table>
+
+    <!-- LISTA C -->
+    <div class="pacto-header">LISTA C - UNIDAD POR CHILE</div>
+    <table>
+        <tr>
+            <th style="width: 15%;">Nombre</th>
+            <th style="width: 5%;">Edad</th>
+            <th style="width: 12%;">Profesión</th>
+            <th style="width: 5%;">N° Voto</th>
+            <th style="width: 15%;">Partido</th>
+            <th style="width: 38%;">Descripción</th>
+            <th style="width: 10%;">Estado</th>
+        </tr>
+        <tr>
+            <td>Rodrigo Alfonso Rettig Vargas</td>
+            <td>42</td>
+            <td>Abogado</td>
+            <td>C58</td>
+            <td>Partido Liberal (PL)</td>
+            <td>Abogado U. Finis Terrae, magíster en Política y Gobierno. Ex secretario general del Partido Ciudadanos. Fue candidato a Convención y Consejo Constitucional.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Marcela Andrea Hevia Cubillos</td>
+            <td>38</td>
+            <td>Bibliotecóloga</td>
+            <td>C59</td>
+            <td>Independiente (IND) - PL</td>
+            <td>Fue candidata a alcaldesa de Las Condes en dos ocasiones. Bibliotecaria, con estudios en Democracia y Decisiones Públicas.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Constanza Schönhaut Soto</td>
+            <td>36</td>
+            <td>Abogada</td>
+            <td>C60</td>
+            <td>Frente Amplio (FA)</td>
+            <td>Ex convencional constitucional (2021-2022). Fue candidata a alcaldesa en Las Condes. Abogada U. de Chile, fundadora del Frente Amplio.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Isidora Alcalde Egaña</td>
+            <td>35</td>
+            <td>Periodista</td>
+            <td>C61</td>
+            <td>Frente Amplio (FA)</td>
+            <td>Ex concejala de Las Condes (2021-2024). Periodista U. Diego Portales, máster en Políticas Sociales y Acción Comunitaria.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Cindy Susy Solís Ibarra</td>
+            <td>37</td>
+            <td>Psicóloga</td>
+            <td>C62</td>
+            <td>Independiente (IND) - PPD</td>
+            <td>Psicóloga U. Central. Coordinadora de la Fundación Por la Democracia.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>María Ester Olea Rodríguez</td>
+            <td>54</td>
+            <td>Técnica en Contabilidad y Medio Ambiente</td>
+            <td>C63</td>
+            <td>Partido Radical (PR)</td>
+            <td>Fue consejera regional por Santiago V (2021-2024). Contadora y Técnica en Medio Ambiente.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Cecilia Ximena Celis Ahumada</td>
+            <td>48</td>
+            <td>Trabajadora Social</td>
+            <td>C64</td>
+            <td>Democracia Cristiana (DC)</td>
+            <td>Ha sido candidata a core y concejal. Licenciada en Trabajo Social U. Academia de Humanismo Cristiano.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+    </table>
+
+    <!-- LISTA D -->
+    <div class="pacto-header">LISTA D - IZQUIERDA ECOLOGISTA POPULAR ANIMALISTA Y HUMANISTA</div>
+    <table>
+        <tr>
+            <th style="width: 15%;">Nombre</th>
+            <th style="width: 5%;">Edad</th>
+            <th style="width: 12%;">Profesión</th>
+            <th style="width: 5%;">N° Voto</th>
+            <th style="width: 15%;">Partido</th>
+            <th style="width: 38%;">Descripción</th>
+            <th style="width: 10%;">Estado</th>
+        </tr>
+        <tr>
+            <td>Nelson Nicolás Peña Gallardo</td>
+            <td>59</td>
+            <td>Administrador de Empresas</td>
+            <td>D65</td>
+            <td>Partido Humanista (PH)</td>
+            <td>Dirigente social, administrador de empresas.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Guillermo Abraham González Castro</td>
+            <td>44</td>
+            <td>Orientador Familiar</td>
+            <td>D66</td>
+            <td>Independiente (IND) - PH</td>
+            <td>Ha sido candidato a alcalde y concejal en Peñalolén. Dirigente social. Orientador Familiar U. de Los Lagos.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>María Angélica Romero Donoso</td>
+            <td>63</td>
+            <td>Asistente Social</td>
+            <td>D67</td>
+            <td>Partido Humanista (PH)</td>
+            <td>Ex candidata a concejala en La Reina. Asistente Social U. Arcis.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Elio Zárate Moraga</td>
+            <td>63</td>
+            <td>Técnico Deportivo</td>
+            <td>D68</td>
+            <td>Independiente (IND) - PH</td>
+            <td>Activista socioambiental y dirigente social. Profesor de tenis y productor deportivo. Técnico Deportivo Instituto AIEP.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Nicolás Andrés Romero Reeves</td>
+            <td>40</td>
+            <td>Abogado</td>
+            <td>D69</td>
+            <td>Independiente (IND) - PH</td>
+            <td>Abogado U. de Chile, magíster en Sociología. Músico y comunicador, editor Revista de Frente. Fue candidato a Convención Constitucional.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Ninoska Henríquez Araya</td>
+            <td>59</td>
+            <td>Ingeniera Comercial</td>
+            <td>D70</td>
+            <td>Independiente (IND) - PH</td>
+            <td>Ingeniera Comercial, posee magíster en Polímeros.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Elizabeth Margarita Tudela Cruz</td>
+            <td>33</td>
+            <td>Técnica en Enfermería</td>
+            <td>D71</td>
+            <td>Partido Humanista (PH)</td>
+            <td>-</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+    </table>
+
+    <!-- LISTA G -->
+    <div class="pacto-header">LISTA G - ALIANZA VERDE POPULAR</div>
+    <table>
+        <tr>
+            <th style="width: 15%;">Nombre</th>
+            <th style="width: 5%;">Edad</th>
+            <th style="width: 12%;">Profesión</th>
+            <th style="width: 5%;">N° Voto</th>
+            <th style="width: 15%;">Partido</th>
+            <th style="width: 38%;">Descripción</th>
+            <th style="width: 10%;">Estado</th>
+        </tr>
+        <tr>
+            <td>Igor Contreras Jeria</td>
+            <td>55</td>
+            <td>Comunicador Audiovisual</td>
+            <td>G72</td>
+            <td>Alianza Verde Popular (AVP)</td>
+            <td>Ex candidato a alcalde de Las Condes. Cineasta. Asesor y analista político.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Paula Andrea Huechaqueo Rojas</td>
+            <td>38</td>
+            <td>Enfermera</td>
+            <td>G73</td>
+            <td>Alianza Verde Popular (AVP)</td>
+            <td>Enfermera U. Autónoma.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+    </table>
+
+    <!-- LISTA I -->
+    <div class="pacto-header">LISTA I - PARTIDO DE LA GENTE</div>
+    <table>
+        <tr>
+            <th style="width: 15%;">Nombre</th>
+            <th style="width: 5%;">Edad</th>
+            <th style="width: 12%;">Profesión</th>
+            <th style="width: 5%;">N° Voto</th>
+            <th style="width: 15%;">Partido</th>
+            <th style="width: 38%;">Descripción</th>
+            <th style="width: 10%;">Estado</th>
+        </tr>
+        <tr>
+            <td>Ricardo Andrés Avilés Rubilar</td>
+            <td>46</td>
+            <td>Arquitecto</td>
+            <td>I74</td>
+            <td>Partido de la Gente (PDG)</td>
+            <td>Se ha desempeñado en el Ministerio de Vivienda y en un municipio.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Cristopher Alexeis Suárez González</td>
+            <td>32</td>
+            <td>Técnico Financiero</td>
+            <td>I75</td>
+            <td>Partido de la Gente (PDG)</td>
+            <td>Ex candidato a core por Santiago I. Ha trabajado como analista financiero en la banca.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Elizabeth Fuentes Bravo</td>
+            <td>50</td>
+            <td>Administradora de Empresas</td>
+            <td>I76</td>
+            <td>Partido de la Gente (PDG)</td>
+            <td>Emprendedora en la formación deportiva, se ha desempeñado como instructora de karate.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Ernesto Exequiel Cortez Ulbrich</td>
+            <td>56</td>
+            <td>Ingeniero en Administración</td>
+            <td>I77</td>
+            <td>Partido de la Gente (PDG)</td>
+            <td>Se ha desarrollado como músico y productor. Fue candidato a concejal por Quinta Normal.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Marcela Ivonne Caballero Reyes</td>
+            <td>52</td>
+            <td>-</td>
+            <td>I78</td>
+            <td>Partido de la Gente (PDG)</td>
+            <td>Ha trabajado como ejecutiva comercial.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Maricel del Carmen Donoso Acevedo</td>
+            <td>52</td>
+            <td>Técnica en Trabajo Social</td>
+            <td>I79</td>
+            <td>Partido de la Gente (PDG)</td>
+            <td>Se ha desempeñado en labores de trabajo social a nivel municipal.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Ricardo Andrés Silva Calcagno</td>
+            <td>42</td>
+            <td>Técnico Analista de Sistemas</td>
+            <td>I80</td>
+            <td>Partido de la Gente (PDG)</td>
+            <td>Ingeniero Técnico en Ciberseguridad IP AIEP. Se ha desempeñado como analista. Parte del equipo comunicacional del PDG.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+    </table>
+
+    <!-- LISTA J -->
+    <div class="pacto-header">LISTA J - CHILE GRANDE Y UNIDO</div>
+    <table>
+        <tr>
+            <th style="width: 15%;">Nombre</th>
+            <th style="width: 5%;">Edad</th>
+            <th style="width: 12%;">Profesión</th>
+            <th style="width: 5%;">N° Voto</th>
+            <th style="width: 15%;">Partido</th>
+            <th style="width: 38%;">Descripción</th>
+            <th style="width: 10%;">Estado</th>
+        </tr>
+        <tr>
+            <td>Juan Francisco Undurraga Gazitúa</td>
+            <td>60</td>
+            <td>Técnico en Publicidad</td>
+            <td>J81</td>
+            <td>Evolución Política (EVO)</td>
+            <td>Diputado actual por el Distrito 11. Técnico en Publicidad Esc. Com. Mónica Herrera. Fundador Red de Empresas Inclusivas. Ex presidente de Evópoli.</td>
+            <td class="reeleccion">REELECCIÓN</td>
+        </tr>
+        <tr>
+            <td>Macarena Cornejo Fuentes</td>
+            <td>32</td>
+            <td>Abogada</td>
+            <td>J82</td>
+            <td>Evolución Política (EVO)</td>
+            <td>Actual secretaria general de Evópoli. Fue candidata a Convención Constitucional. Ex presidenta de Juventud de Evópoli. Abogada U. Andrés Bello.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Diego Schalper Sepúlveda</td>
+            <td>40</td>
+            <td>Abogado</td>
+            <td>J83</td>
+            <td>Renovación Nacional (RN)</td>
+            <td>Actual diputado por el Distrito 15 de O'Higgins, se traslada al Distrito 11. Abogado UC, máster en Derecho y doctor en Derecho Público.</td>
+            <td class="reeleccion">REELECCIÓN (cambia distrito)</td>
+        </tr>
+        <tr>
+            <td>Claudia Mora Vega</td>
+            <td>44</td>
+            <td>Periodista</td>
+            <td>J84</td>
+            <td>Renovación Nacional (RN)</td>
+            <td>Ex concejala de Peñalolén por tres periodos consecutivos (2012-2024). Fue candidata a alcaldesa de Peñalolén. Periodista U. SEK.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Percy Carter Morong</td>
+            <td>54</td>
+            <td>Ingeniero Civil Industrial</td>
+            <td>J85</td>
+            <td>Independiente (IND) - Demócratas (DEM)</td>
+            <td>Ingeniero Civil Industrial U. Diego Portales, máster en Administración de Empresas.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Carlos Ward Edwards</td>
+            <td>55</td>
+            <td>-</td>
+            <td>J86</td>
+            <td>Unión Demócrata Independiente (UDI)</td>
+            <td>Ex concejal de Lo Barnechea. Fue core un período por Santiago IV (2022-2023). Empresario del transporte y mudanzas. Estudios de Derecho y Comercio Exterior.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Constanza Hube Portus</td>
+            <td>39</td>
+            <td>Abogada</td>
+            <td>J87</td>
+            <td>Unión Demócrata Independiente (UDI)</td>
+            <td>Fue miembro de la Convención Constitucional (2021-2022). Abogada UC, académica de derecho constitucional. Directora del Foro Constitucional PUC.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+    </table>
+
+    <!-- LISTA K -->
+    <div class="pacto-header">LISTA K - CAMBIO POR CHILE</div>
+    <table>
+        <tr>
+            <th style="width: 15%;">Nombre</th>
+            <th style="width: 5%;">Edad</th>
+            <th style="width: 12%;">Profesión</th>
+            <th style="width: 5%;">N° Voto</th>
+            <th style="width: 15%;">Partido</th>
+            <th style="width: 38%;">Descripción</th>
+            <th style="width: 10%;">Estado</th>
+        </tr>
+        <tr>
+            <td>Cristian Araya Lerdo de Tejada</td>
+            <td>37</td>
+            <td>Abogado y Psicólogo</td>
+            <td>K88</td>
+            <td>Partido Republicano (REP)</td>
+            <td>Actual diputado por el Distrito 11. Abogado y psicólogo U. Adolfo Ibáñez. Máster en psicología de las organizaciones. Fue concejal de Vitacura (2016-2021).</td>
+            <td class="reeleccion">REELECCIÓN</td>
+        </tr>
+        <tr>
+            <td>Catalina del Real Mihovilovic</td>
+            <td>57</td>
+            <td>Ingeniera Comercial</td>
+            <td>K89</td>
+            <td>Partido Republicano (REP)</td>
+            <td>Diputada actual por el Distrito 11. Ingeniera Comercial U. de Chile. Fue concejala de Vitacura (2008-2012) y Quilicura (2004-2008). Ex administradora del Gobierno Regional.</td>
+            <td class="reeleccion">REELECCIÓN</td>
+        </tr>
+        <tr>
+            <td>Pedro Lea-Plaza Edwards</td>
+            <td>62</td>
+            <td>Abogado</td>
+            <td>K90</td>
+            <td>Partido Republicano (REP)</td>
+            <td>Ex candidato a alcalde de Lo Barnechea. Abogado UC, máster en Administración de Negocios Loyola (EE.UU.). Ha ocupado cargos ejecutivos en seguros y servicios financieros.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Michel Enrique Cartes Zúñiga</td>
+            <td>53</td>
+            <td>Licenciado en Arquitectura</td>
+            <td>K91</td>
+            <td>Partido Social Cristiano (PSC)</td>
+            <td>Ha sido candidato a core y concejal por Las Condes.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Cristián Ignacio Daly Dagorret</td>
+            <td>36</td>
+            <td>Periodista</td>
+            <td>K92</td>
+            <td>Partido Nacional Libertario (PNL)</td>
+            <td>Ex concejal de Lo Barnechea en dos períodos (2016-2024). Vocero de movimiento Chao Contribuciones. Periodista U. Adolfo Ibáñez. Ha trabajado en medios y como consultor de comunicaciones.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>Carlos Roberto Alarcón Castro</td>
+            <td>75</td>
+            <td>Arquitecto</td>
+            <td>K93</td>
+            <td>Partido Nacional Libertario (PNL)</td>
+            <td>Fue alcalde de Peñalolén por tres periodos no consecutivos (1996-2004). Ex director de obras en Las Condes. Arquitecto UC. Ha sido académico universitario.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        <tr>
+            <td>María Carolina Cotapos Mardones</td>
+            <td>60</td>
+            <td>Comunicadora Audiovisual</td>
+            <td>K94</td>
+            <td>Partido Nacional Libertario (PNL)</td>
+            <td>Ex concejala de Las Condes en dos períodos. Ha sido gerenta general de la Unión Comunal de Juntas de Vecinos en Las Condes. Fue directorra de RRPP de la Asociación de Municipalidades.</td>
+            <td class="debut">DEBUT</td>
+        </tr>
+        </table>
+    </body>
+</html>
