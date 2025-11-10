@@ -18,7 +18,7 @@
  * @property {boolean} [autoPlay=false] - Enable automatic cycling through timeline items
  * @property {string} [autoPlayDirection='forward'] - Direction of autoplay ('forward' or 'backward')
  * @property {number} [autoPlayPause=2000] - Pause between transitions in milliseconds
- * @property {boolean} [pauseOnHover=true] - Pause autoplay when hovering over timeline
+ * @property {boolean} [pauseOnHover=true] - Pause autoplay when hovering over timeline\n * @property {boolean} [responsive=false] - Enable responsive behavior on window resize
  * 
  * @typedef {Object} TimelinrAPI
  * @property {function(HTMLElement): Function} init - Initialize the timeline
@@ -118,6 +118,7 @@ const createTimelinr = (userOptions = {}) => {
 
         if ('arrowKeys' in options) normalizedOptions.arrowKeys = Boolean(options.arrowKeys);
         if ('autoPlay' in options) normalizedOptions.autoPlay = Boolean(options.autoPlay);
+        if ('responsive' in options) normalizedOptions.responsive = Boolean(options.responsive);
 
         // Validation for datesPosition is now handled in the datesPosition setter above        
         // Validate and warn about autoplay-related settings
@@ -159,7 +160,8 @@ const createTimelinr = (userOptions = {}) => {
         arrowKeys: true,
         startAt: 1,
         autoPlay: false,
-        pauseOnHover: false
+        pauseOnHover: false,
+        responsive: false
     }, normalizeOptions(userOptions));
 
     /**
@@ -309,8 +311,8 @@ const createTimelinr = (userOptions = {}) => {
     const calculateDimensions = elements => ({
         containerWidth: elements.container.offsetWidth,
         containerHeight: elements.container.offsetHeight,
-        issueWidth: elements.issueItems[0].offsetWidth,
-        issueHeight: elements.issueItems[0].offsetHeight,
+        issueWidth: settings.orientation === 'horizontal' ? elements.container.offsetWidth : elements.issueItems[0].offsetWidth,
+        issueHeight: settings.orientation === 'vertical' ? elements.container.offsetHeight : elements.issueItems[0].offsetHeight,
         dateWidth: elements.dateItems[0].offsetWidth,
         dateHeight: elements.dateItems[0].offsetHeight,
         howManyDates: elements.dateItems.length,
@@ -329,13 +331,15 @@ const createTimelinr = (userOptions = {}) => {
         
         const isHorizontal = settings.orientation === 'horizontal';
         
-        // Set container sizes
+        // Set container and item sizes
         if (isHorizontal) {
-            elements.issues.style.width = `${dimensions.issueWidth * dimensions.howManyIssues}px`;
-            elements.dates.style.width = `${dimensions.dateWidth * dimensions.howManyDates}px`;
+        elements.issues.style.width = `${dimensions.issueWidth * dimensions.howManyIssues}px`;
+        elements.issueItems.forEach(item => item.style.width = `${dimensions.issueWidth}px`);
+        elements.dates.style.width = `${dimensions.dateWidth * dimensions.howManyDates}px`;
         } else {
-            elements.issues.style.height = `${dimensions.issueHeight * dimensions.howManyIssues}px`;
-            elements.dates.style.height = `${dimensions.dateHeight * dimensions.howManyDates}px`;
+        elements.issues.style.height = `${dimensions.issueHeight * dimensions.howManyIssues}px`;
+        elements.issueItems.forEach(item => item.style.height = `${dimensions.issueHeight}px`);
+        elements.dates.style.height = `${dimensions.dateHeight * dimensions.howManyDates}px`;
         }
 
         // Set up transitions for smooth animations with explicit properties
@@ -598,6 +602,21 @@ const prev = () => {
             });
         }
 
+        // Responsive resize listener
+        if (settings.responsive) {
+            const handleResize = () => {
+                state.dimensions = calculateDimensions(state.elements);
+                setupDimensions(state.elements, state.dimensions);
+                updatePosition(state.elements, state.dimensions, state.currentIndex);
+                updateNavigation(state.elements, state.dimensions, state.currentIndex);
+            };
+
+            window.addEventListener('resize', handleResize);
+            cleanupFunctions.push(() => {
+                window.removeEventListener('resize', handleResize);
+            });
+        }
+
         // Return a cleanup function that handles all event listeners
         return () => {
             cleanupFunctions.forEach(cleanup => cleanup());
@@ -705,15 +724,21 @@ const setupAutoPlay = () => {
         state.elements = getDOMElements(container);
         
         if (!state.elements?.container ||
-            !state.elements.dates ||
-            !state.elements.issues) {
-            console.error('Required elements not found');
-            return null;
+        !state.elements.dates ||
+        !state.elements.issues) {
+        console.error('Required elements not found');
+        return null;
         }
 
         // Add orientation-specific class
         if (settings.orientation === 'vertical') {
-            container.classList.add('timelinr-vertical');
+        container.classList.add('timelinr-vertical');
+        }
+
+        // Make responsive if enabled
+        if (settings.responsive) {
+            container.style.width = '100%';
+            container.classList.add('timelinr-responsive');
         }
 
         state.dimensions = calculateDimensions(state.elements);

@@ -13,9 +13,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize all timelines otions on the page
             document.querySelectorAll('.timelinr').forEach((container, index) => {
-              const options = index === 1 ? {
+              const options = index === 0 ? {
+                responsive: true
+              } : index === 1 ? {
                 orientation: 'vertical',
-                datesPosition: 'right'
+                datesPosition: 'right',
+
               } : index === 2 ? {
                 startAt: 4,
                 datesPosition: 'bottom',
@@ -97,7 +100,7 @@
   </div>
 
   <div class="timelinr">
-    <ul class="timelinr-issues">
+    <ul class="timelinr-issues" style="width: 90%">
       <li data-date="1977">
         <div class="inner-content">
           <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>

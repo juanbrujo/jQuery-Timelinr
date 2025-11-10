@@ -7,7 +7,7 @@
   --color-link-hover: #de6418;
   --color-date-line: #999999;
   --size-arrow: 30px;
-  --size-dates-base-size: 50px;
+  --size-dates-base-size: 60px;
   --size-horizontal-width: 800px;
   --size-vertical-width: 800px;
   --size-vertical-height: 400px;
@@ -210,6 +210,12 @@ body {
   width: calc(var(--size-dates-base-size) * 2);
 }
 
+.timelinr-vertical.timelinr-responsive .timelinr-dates {
+  display: block;
+  width: 10%;
+  min-width: calc(var(--size-dates-base-size) * 2);
+}
+
 .timelinr-vertical .timelinr-dates li {
   width: 100%;
   height: var(--size-dates-base-size);
@@ -226,6 +232,11 @@ body {
   grid-auto-flow: row;
   border-width: 0 0 0 1px;
 }
+
+.timelinr-vertical.timelinr-responsive .timelinr-issues {
+  width: 90%;
+}
+
 
 .timelinr-dates-right .timelinr-issues {
   border-width: 0 1px 0 0;
