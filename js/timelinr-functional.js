@@ -699,7 +699,7 @@ const setupAutoPlay = () => {
      * 3. Sets up initial layout
      * 4. Configures events and autoplay
      * 
-     * @returns {Function|null} Cleanup function or null if initialization fails
+     * @returns {Object} Timeline API object with control methods
      */
     const init = (container) => {
         state.elements = getDOMElements(container);
@@ -726,10 +726,24 @@ const setupAutoPlay = () => {
         const cleanupEvents = setupEvents(state.elements);
         const cleanupAutoplay = setupAutoPlay();
 
-        // Return cleanup function
-        return () => {
+        // Store cleanup function on container for implicit cleanup
+        container._timelinrCleanup = () => {
             cleanupEvents();
             cleanupAutoplay();
+        };
+
+        // Return the timeline API for chaining
+        return {
+            goToIndex,
+            next,
+            prev,
+            getSettings: () => ({ ...settings }),
+            destroy: () => {
+                if (container._timelinrCleanup) {
+                    container._timelinrCleanup();
+                    delete container._timelinrCleanup;
+                }
+            }
         };
     };
 

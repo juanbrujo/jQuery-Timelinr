@@ -11,36 +11,28 @@
     <script src="js/timelinr-functional.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize all timelines on the page
+            // Initialize all timelines otions on the page
             document.querySelectorAll('.timelinr').forEach((container, index) => {
-                const options = index === 0 ? {} : index === 1 ? {
-                  orientation: 'vertical',
-                  datesPosition: 'right'
-                } : {
-                  startAt: 4,
-                  datesPosition: 'bottom',
-                  arrowKeys: false,
-                  autoPlay: true,
-                  autoPlayDirection: 'forward',
-                  autoPlayPause: 2000,
-                  pauseOnHover: true
-                };
-                
-                const timeline = createTimelinr(options);
-                
-                // Pass the container to init function
-                const cleanup = timeline.init(container);
-
-                // Store cleanup function on the container
-                if (cleanup) {
-                    container.cleanup = cleanup;
-                }
+              const options = index === 1 ? {
+                orientation: 'vertical',
+                datesPosition: 'right'
+              } : index === 2 ? {
+                startAt: 4,
+                datesPosition: 'bottom',
+                arrowKeys: false,
+                autoPlay: true,
+                autoPlayDirection: 'forward',
+                autoPlayPause: 2000,
+                pauseOnHover: true
+              } : {};
+              // Init
+              createTimelinr(options).init(container);
             });
 
             // Cleanup on page unload
             window.addEventListener('unload', () => {
                 document.querySelectorAll('.timelinr').forEach(container => {
-                    if (container.cleanup) container.cleanup();
+                    if (container._timelinrCleanup) container._timelinrCleanup();
                 });
             });
         });
