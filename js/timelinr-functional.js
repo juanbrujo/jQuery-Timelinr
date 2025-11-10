@@ -252,8 +252,8 @@ const createTimelinr = (userOptions = {}) => {
 
         // Hide buttons if arrowKeys is false
         if (!settings.arrowKeys) {
-            prevBtn.style.display = 'none';
-            nextBtn.style.display = 'none';
+            prevBtn.classList.add('timelinr-arrow-hidden');
+            nextBtn.classList.add('timelinr-arrow-hidden');
         }
 
         // Add buttons to container
@@ -339,8 +339,8 @@ const createTimelinr = (userOptions = {}) => {
         }
 
         // Set up transitions for smooth animations with explicit properties
-        elements.issues.style.transition = `transform ${settings.issuesSpeed}ms ease-in-out`;
-        elements.dates.style.transition = `transform ${settings.datesSpeed}ms ease-in-out`;
+        elements.issues.style.transitionDuration = `${settings.issuesSpeed}ms`;
+        elements.dates.style.transitionDuration = `${settings.datesSpeed}ms`;
         
         // Initial centering of the first date
         const centerPos = calculateCenterPosition(dimensions, state.currentIndex, isHorizontal);
@@ -431,23 +431,23 @@ const updatePosition = (elements, dimensions, index) => {
 
         // If arrowKeys is false, hide navigation buttons completely
         if (!settings.arrowKeys) {
-            elements.prevBtn.style.display = 'none';
-            elements.nextBtn.style.display = 'none';
+            elements.prevBtn.classList.add('timelinr-arrow-hidden');
+            elements.nextBtn.classList.add('timelinr-arrow-hidden');
             return;
         }
 
         if (dimensions.howManyDates <= 1) {
-            elements.prevBtn.style.display = 'none';
-            elements.nextBtn.style.display = 'none';
+            elements.prevBtn.classList.add('timelinr-arrow-hidden');
+            elements.nextBtn.classList.add('timelinr-arrow-hidden');
         } else if (index === 0) {
-            elements.prevBtn.style.display = 'none';
-            elements.nextBtn.style.display = 'block';
+            elements.prevBtn.classList.add('timelinr-arrow-hidden');
+            elements.nextBtn.classList.remove('timelinr-arrow-hidden');
         } else if (index === dimensions.howManyDates - 1) {
-            elements.prevBtn.style.display = 'block';
-            elements.nextBtn.style.display = 'none';
+            elements.prevBtn.classList.remove('timelinr-arrow-hidden');
+            elements.nextBtn.classList.add('timelinr-arrow-hidden');
         } else {
-            elements.prevBtn.style.display = 'block';
-            elements.nextBtn.style.display = 'block';
+            elements.prevBtn.classList.remove('timelinr-arrow-hidden');
+            elements.nextBtn.classList.remove('timelinr-arrow-hidden');
         }
     };
 

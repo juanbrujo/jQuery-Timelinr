@@ -1,12 +1,17 @@
 :root {
-  --color-bg: #cccccc;
-  --color-bg-rgb: 255, 255, 255;
+  --color-body-bg: #cccccc;
+  --color-timelinr-bg: #ffffff;
+  --color-timelinr-bg-rgb: 255, 255, 255;
   --color-text: #333333;
   --color-link: #999999;
   --color-link-hover: #de6418;
   --color-date-line: #999999;
-  --arrow-size: 30px;
+  --size-arrow: 30px;
   --size-dates-base-size: 50px;
+  --size-horizontal-width: 800px;
+  --size-vertical-width: 800px;
+  --size-gradient: 30px;
+  --size-padding: 10px;
 }
 
 *, *::before, *::after {
@@ -20,7 +25,7 @@
 }
 
 body {
-  background: var(--color-bg);
+  background: var(--color-body-bg);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   color: var(--color-text);
   font-size: 16px;
@@ -29,12 +34,12 @@ body {
 /* Default Timelinr */
 .timelinr {
   position: relative;
-  width: 800px;
+  width: var(--size-horizontal-width);
   margin: 100px auto;
-  padding: 10px;
-  background-color: white;
-  box-shadow: 0 0 5px rgba(0,0,0,.2);
-  border-radius: 20px;
+  padding: var(--size-padding);
+  background-color: var(--color-timelinr-bg);
+  box-shadow: rgba(17, 12, 46, 0.05) 0 30px 50px 0;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -44,10 +49,10 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 30px;
+  width: var(--size-gradient);
   height: 100%;
-  background-color: var(--color-bg);
-  background: linear-gradient(90deg,rgba(var(--color-bg-rgb), 1) 30%, rgba(var(--color-bg-rgb), 0) 100%);
+  background-color: var(--color-timelinr-bg);
+  background: linear-gradient(90deg,rgba(var(--color-timelinr-bg-rgb), 1) 30%, rgba(var(--color-timelinr-bg-rgb), 0) 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -55,7 +60,7 @@ body {
 .timelinr::after {
   left: auto;
   right: 0;
-  background: linear-gradient(270deg,rgba(var(--color-bg-rgb), 1) 30%, rgba(var(--color-bg-rgb), 0) 100%);
+  background: linear-gradient(270deg,rgba(var(--color-timelinr-bg-rgb), 1) 30%, rgba(var(--color-timelinr-bg-rgb), 0) 100%);
 }
 
 .timelinr li {
@@ -63,8 +68,8 @@ body {
 }
 
 .timelinr-dates {
-  width: 800px;
-  height: 50px;
+  width: 100%;
+  height: var(--size-dates-base-size);
   display: flex;
   transition: transform 0.3s ease;
   will-change: transform;
@@ -77,7 +82,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: url('../images/biggerdot.png') center 47px no-repeat; */
 }
 
 .timelinr-dates li::before {
@@ -115,9 +119,9 @@ body {
 }
 
 .timelinr-issues {
-  width: 800px;
   display: grid;
   grid-auto-flow: column;
+  width: var(--size-horizontal-width);
   min-height: 200px;
   border-width: 1px 0 0;
   border-style: solid;
@@ -132,7 +136,7 @@ body {
 }
 
 .timelinr-issues li {
-  width: 800px;
+  width: calc(var(--size-horizontal-width) - var(--size-padding) * 2 );
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,14 +145,13 @@ body {
 .timelinr-issues .inner-content {
   padding: 20px 40px;
 }
-  
+
 .timelinr-next,
 .timelinr-prev {
   position: absolute;
-  top: calc(var(--arrow-size) + (var(--arrow-size) / 2));
-  width: var(--arrow-size);
-  height: var(--arrow-size);
-  display: flex;
+  top: calc(var(--size-arrow) + (var(--size-arrow) / 2));
+  width: var(--size-arrow);
+  height: var(--size-arrow);
   text-align: center;
   align-content: center;
   font-size: 18px;
@@ -157,7 +160,14 @@ body {
   line-height: 1;
   border-radius: 50%;
   z-index: 2;
-  background-color: var(--color-link);
+  background-color: var(--color-link-hover);
+  transition: all .2s ease;
+}
+
+.timelinr-dates-bottom .timelinr-next,
+.timelinr-dates-bottom .timelinr-prev {
+  top: auto;
+  bottom: calc(var(--size-arrow) + (var(--size-arrow) / 2));
 }
 
 .timelinr-prev {
@@ -169,9 +179,15 @@ body {
   right: 1%;
 }
 
+.timelinr-arrow-hidden {
+  transform: scale(0);
+  opacity: 0;
+  transition: all .2s ease;
+}
+
 /* Vertical */
 .timelinr-vertical {
-  width: 800px;
+  width: var(--size-vertical-width);
   height: 320px;
   display: flex;
 }
@@ -179,14 +195,14 @@ body {
 .timelinr-vertical::after,
 .timelinr-vertical::before {
   width: 100%;
-  height: 30px;
-  background: linear-gradient(180deg,rgba(var(--color-bg-rgb), 1) 30%, rgba(var(--color-bg-rgb), 0) 100%);
+  height: var(--size-gradient);
+  background: linear-gradient(180deg,rgba(var(--color-timelinr-bg-rgb), 1) 30%, rgba(var(--color-timelinr-bg-rgb), 0) 100%);
 }
 
 .timelinr-vertical::after {
   top: auto;
   bottom: 0;
-  background: linear-gradient(0deg,rgba(var(--color-bg-rgb), 1) 30%, rgba(var(--color-bg-rgb), 0) 100%);
+  background: linear-gradient(0deg,rgba(var(--color-timelinr-bg-rgb), 1) 30%, rgba(var(--color-timelinr-bg-rgb), 0) 100%);
 }
 
 .timelinr-vertical .timelinr-dates {
@@ -230,7 +246,7 @@ body {
 .timelinr-vertical .timelinr-next,
 .timelinr-vertical .timelinr-prev {
   top: 2%;
-  left: calc((var(--size-dates-base-size) * 2) - (var(--arrow-size) / 2) + 10px);
+  left: calc((var(--size-dates-base-size) * 2) - (var(--size-arrow) / 2) + 10px);
   transform: rotate(-90deg);
 }
 
@@ -243,5 +259,5 @@ body {
 .timelinr-dates-right .timelinr-next,
 .timelinr-dates-right .timelinr-prev {
   left: auto;
-  right: calc((var(--size-dates-base-size) * 2) - (var(--arrow-size) / 2) + 10px);
+  right: calc((var(--size-dates-base-size) * 2) - (var(--size-arrow) / 2) + 10px);
 }
